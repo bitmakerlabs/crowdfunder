@@ -13,6 +13,9 @@ Project.destroy_all
 User.create!(first_name: 'Mike', last_name: "S", email: 'mschwartze@gmail.com', password: '11111111',
 password_confirmation: '11111111')
 
+User.create!(first_name: 'Jacob', last_name: "Philpott", email: 'jacob@email.com', password: '11111111',
+password_confirmation: '11111111')
+
 25.times do
   p = Project.create!(
     title: Faker::App.name,
