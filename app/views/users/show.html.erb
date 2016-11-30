@@ -1,6 +1,6 @@
 <h3><%= "Hello #{@user.first_name}" %></h3>
 
-<% @projects.each do |project| %>
+<% @user.projects.each do |project| %>
 
   <%= project.title %>
   <%= project.goal %>
