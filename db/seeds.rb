@@ -21,7 +21,7 @@ password_confirmation: '11111111')
     title: Faker::App.name,
     description: Faker::Lorem.paragraph,
     goal: rand(100000),
-    user_id: rand(1..5),
+    user_id: rand(1..6),
     start_date: Time.now.utc - rand(60).days,
     end_date: Time.now.utc + rand(10).days
   )
