@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @projects = Project.all
     @user = current_user
   end
 
