@@ -6,4 +6,12 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :rewards
   validates_presence_of :title, :description, :goal, :start_date, :end_date
 
+  def self.search(title)
+    if title
+        @found_projects = Project.where('title ILIKE ?',  "%#{title}%")
+    else
+        @found_projects = Project.all
+    end
+  end
+
 end

@@ -1,4 +1,13 @@
-<% @projects.each do |project| %>
+  <%= form_tag projects_path, :method => 'get' do %>
+    <br>
+    <p>Search Projects</p>
+    <p>Title:
+      <%= text_field_tag :title, params[:title] %> </p>
+
+      <%= submit_tag "Search", :name => nil %>
+  <% end %>
+
+<% @found_projects.each do |project| %>
   <article class="project">
     <%= link_to project, class: 'project-link' do %>
       <figure class="project-image">
