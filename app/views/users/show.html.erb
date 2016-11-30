@@ -1,9 +1,15 @@
 <h3><%= "Hello #{@user.first_name}" %></h3>
 
+<h4>Your Projects</h4>
 <% @user.projects.each do |project| %>
-
   <%= project.title %><br />
   <%= project.goal %><br />
   <%= project.end_date %><br />
-
 <% end %>
+
+<h4>Your Pledges</h4>
+<% @user.pledges.each do |pledge| %>
+<%= pledge.reward.project.title %><br />
+<%= pledge.reward.description %><br />
+<%= pledge.dollar_amount %><br />
+<% end  %>
