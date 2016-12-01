@@ -6,12 +6,12 @@
 
   <div>
     <%= f.label :description %>
-    <%= f.text_field :description %>
+    <%= f.text_field :description%>
   </div>
 
   <div>
     <%= f.label :goal %>
-    <%= f.number_field :goal %>
+    <%= f.number_field :goal, step: 1, min: 1  %>
   </div>
 
   <div>
@@ -21,12 +21,12 @@
 
   <div>
     <%= f.label :start_date %>
-    <%= f.datetime_select :start_date %>
+    <%= f.datetime_select :start_date, :start_year => Date.today.year %>
   </div>
 
   <div>
     <%= f.label :end_date %>
-    <%= f.datetime_select :end_date %>
+    <%= f.datetime_select :start_date, :start_year => Date.today.year %>
   </div>
 
   <p>Rewards</p>

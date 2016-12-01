@@ -10,7 +10,7 @@
 <% end %>
 
 <h2>Rewards</h2>
-<% @project.rewards.each do |reward| %> 
+<% @project.rewards.each do |reward| %>
   <p><%= number_to_currency(reward.dollar_amount) %></p>
   <p><%= reward.description %></p>
 
@@ -19,4 +19,10 @@
     <%= f.submit "Pledge" %>
   <% end %>
 
+<% end %>
+
+<h2>Pledges</h2>
+<h3>Backers: <%= @project.pledges.all.count %></h3>
+<% @project.pledges.each do |pledge| %>
+  <p><%= pledge.user.first_name %> : $<%= pledge.dollar_amount %></p>
 <% end %>

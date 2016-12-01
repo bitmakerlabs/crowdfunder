@@ -1,4 +1,8 @@
 class User < ActiveRecord::Base
+
+  has_many :pledges
+  has_many :rewards, through: :pledges
+  has_many :projects, through: :pledges
   authenticates_with_sorcery!
 
   validates :password, length: { minimum: 8 }, on: :create
