@@ -14,7 +14,12 @@
 <p class="goal">Amount Left: </p><p><%= number_to_currency(@project.goal - @project.pledges.sum(:dollar_amount)) %> </p>
 <p class="goal">Fundraising starts: </p><p><%= @project.start_date.strftime("%A %b %d %Y") %></p>
 <p class="goal">Deadline: </p><p><%= @project.end_date.strftime("%A %b %d %Y") %></p>
-<p class="goal" id="time_left"><%= @project.time_left %> to fund this project</p>
+<% if @project.expired? %>
+  <p class="goal" id="time_expired"><%= @project.time_left %></p>
+<% else %>
+  <p class="goal"><%= @project.time_left %> to fund this project</p>
+<% end %>
+
 </div>
 
 <h2>Rewards</h2>
