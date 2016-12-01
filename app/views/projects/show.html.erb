@@ -36,7 +36,9 @@
 
   <%= form_for [reward, reward.pledges.new] do |f| %>
     <%= f.number_field :dollar_amount, value: reward.dollar_amount, step: 0.01 %>
-    <%= f.submit "Pledge" %>
+    <% if Time.now > @project.start_date && Time.now < @project.end_date %>
+      <%= f.submit "Pledge" %>
+    <% end %>
   <% end %>
 </div>
 <% end %>
