@@ -10,11 +10,19 @@ Reward.destroy_all
 User.destroy_all
 Project.destroy_all
 
+User.create!(first_name: 'Mike', last_name: "S", email: 'mschwartze@gmail.com', password: '11111111',
+password_confirmation: '11111111')
+
+User.create!(first_name: 'Jacob', last_name: "Philpott", email: 'jacob@email.com', password: '11111111',
+password_confirmation: '11111111')
+
 25.times do
   p = Project.create!(
     title: Faker::App.name,
     description: Faker::Lorem.paragraph,
     goal: rand(100000),
+    user_id: rand(1..6),
+    image: "https://placekitten.com/600/395",
     start_date: Time.now.utc - rand(60).days,
     end_date: Time.now.utc + rand(10).days
   )

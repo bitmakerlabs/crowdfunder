@@ -1,0 +1,29 @@
+<div id="profile">
+
+  <h3><%= "Hello #{@user.first_name}" %></h3>
+
+  <div id="projects">
+    <h4>Your Projects</h4>
+    <div id="project">
+    <% @user.projects.each do |project| %>
+      <%= project.title %><br />
+      <%= project.goal %><br />
+      <%= project.end_date %><br />
+      <br />
+    <% end %>
+    </div>
+  </div>
+
+  <div id="pledges">
+    <h4>Your Pledges</h4>
+    <div id="pledge">
+    <% @user.pledges.each do |pledge| %>
+      <%= pledge.reward.project.title %><br />
+      <%= pledge.reward.description %><br />
+      <%= pledge.dollar_amount %><br />
+      <br />
+    <% end  %>
+    </div>
+  </div>
+
+</div>

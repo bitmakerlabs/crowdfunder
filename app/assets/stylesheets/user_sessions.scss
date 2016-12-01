@@ -1,3 +1,44 @@
-// Place all the styles related to the UserSessions controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+#login {
+  margin: auto;
+  background-color: lightgrey;
+  position: relative;
+  width: 35%;
+  top: 70px;
+  border: 7px solid cadetblue;
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 10px;
+}
+
+#form {
+  position: relative;
+  left: 25%;
+}
+
+.field {
+padding: 10px;
+}
+
+label {
+  position: relative;
+  font-weight: bold;
+  display: block;
+  width: 150px;
+  left: 10px;
+  // padding-top: 30px;
+}
+
+input[type=submit] {
+  padding: 0.5em;
+  display: block;
+  position: relative;
+  top: 5px;
+  left: 65px;
+  color: white;
+  background-color: cadetblue;
+  border: 0;
+
+  &:hover {
+    background-color: darken(cadetblue, 8%);
+  }
+}
