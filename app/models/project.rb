@@ -38,4 +38,12 @@ class Project < ActiveRecord::Base
     end
   end
 
+  def expired?
+    Time.now > end_date
+  end
+
+  def time_left
+    Time.now - end_date
+  end
+
 end
