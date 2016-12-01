@@ -1,13 +1,17 @@
   <%= form_tag projects_path, :method => 'get' do %>
     <br>
     <p>Search Projects</p>
+
     <p>Title:
-      <%= text_field_tag :title, params[:title] %> </p>
+    <%= text_field_tag :title, params[:title] %> </p>
 
     <p>Description:
-      <%= text_field_tag :description, params[:description] %> </p>
+    <%= text_field_tag :description, params[:description] %> </p>
 
-      <%= submit_tag "Search", :name => nil %>
+    <p>Goal Less Than:
+    <%= number_field_tag :goal, params[:goal] %> </p>
+
+    <%= submit_tag "Search", :name => nil %>
   <% end %>
 
 <% @found_projects.each do |project| %>
