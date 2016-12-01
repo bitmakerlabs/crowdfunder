@@ -43,7 +43,14 @@ class Project < ActiveRecord::Base
   end
 
   def time_left
-    Time.now - end_date
+
+    t = (end_date - Time.now)
+    days = (t/86400).to_i
+    hours = ((t%86400)/3600).to_i
+    minutes = ((((t%86400))%3600)/60).to_i
+    sec = (((t%86400)%3600)%60).to_i
+    "#{days} days, #{hours} hours, #{minutes} minutes, #{sec} seconds remaning"
+
   end
 
 end
