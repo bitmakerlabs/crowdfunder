@@ -29,6 +29,7 @@
 </div>
 
 <% @found_projects.each do |project| %>
+<% if Time.now <= project.end_date %>
   <article class="project">
     <%= link_to project, class: 'project-link' do %>
       <figure class="project-image">
@@ -44,6 +45,7 @@
         <%= "#{time_ago_in_words(project.end_date)} #{( project.end_date > Time.now.utc ) ? 'remaining' : 'past deadline'}" %></time>
     <% end %>
   </article>
+  <% end %>
 <% end %>
 
 <%= link_to "New Project", new_project_path %>
