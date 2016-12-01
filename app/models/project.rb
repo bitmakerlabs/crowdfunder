@@ -45,12 +45,15 @@ class Project < ActiveRecord::Base
   def time_left
 
     t = (end_date - Time.now)
-    days = (t/86400).to_i
-    hours = ((t%86400)/3600).to_i
-    minutes = ((((t%86400))%3600)/60).to_i
-    sec = (((t%86400)%3600)%60).to_i
-    "#{days} days, #{hours} hours, #{minutes} minutes, #{sec} seconds remaning"
-
+    if t > 0
+      days = (t/86400).to_i
+      hours = ((t%86400)/3600).to_i
+      minutes = ((((t%86400))%3600)/60).to_i
+      sec = (((t%86400)%3600)%60).to_i
+      "#{days} days, #{hours} hours, #{minutes} minutes, #{sec} seconds remaning"
+    else
+      "Time has expired...as it will one day for all of us"
+    end
   end
 
 end
