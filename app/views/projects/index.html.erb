@@ -19,7 +19,15 @@
     <%= submit_tag "Search", :name => nil %>
   <% end %>
 
+<p>
+	<label for="amount">Goal Range:</label>
+	<input type="text" id="amount" readonly style="border:0; color:#333; font-weight:bold;">
+</p>
+
+<div id="slider-range"></div>
+
 </div>
+
 <% @found_projects.each do |project| %>
   <article class="project">
     <%= link_to project, class: 'project-link' do %>
