@@ -23,11 +23,33 @@
 }
 
 #projects {
-  float: left;
+  // float: left;
 }
 
-#pledges {
-  float: right;
+table {
+  margin: auto;
+  width: 95%;
+  text-align: center;
+}
+
+td {
+  width: 33.3333%;
+  border-radius: 10px;
+  padding-top: 3px;
+  background-color: cadetblue;
+  color: white;
+}
+
+tr {
+  border-radius: 10px;
+  font-size: 1.2em;
+  padding-bottom: 5px;
+  background-color: white;
+  color: black;
+}
+
+#profile{
+  text-align: center;
 }
 
 #form {

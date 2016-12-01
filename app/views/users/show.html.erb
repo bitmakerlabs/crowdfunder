@@ -1,29 +1,53 @@
+
 <div id="profile">
-
-  <h3><%= "Hello #{@user.first_name}" %></h3>
-
+  <h1><%= "Hello #{@user.first_name}" %></h1>
   <div id="projects">
-    <h4>Your Projects</h4>
-    <div id="project">
-    <% @user.projects.each do |project| %>
-      <%= project.title %><br />
-      <%= project.goal %><br />
-      <%= project.end_date %><br />
-      <br />
+    <h2>Your Projects</h2>
+    <% if @user.projects.count == 0 %>
+      <p>You have no projects</p>
+    <% else %>
+      <div id="project">
+        <table>
+          <tr>
+            <th>Title</th>
+            <th>Goal</th>
+            <th>End Date</th>
+          </tr>
+          <% @user.projects.each do |project| %>
+          <tr>
+            <td><%= project.title %></td>
+            <td><%= project.goal %></td>
+            <td><%= project.end_date %></td>
+          </tr>
+        <% end %>
+        </table>
+      </div>
     <% end %>
-    </div>
   </div>
 
+
   <div id="pledges">
-    <h4>Your Pledges</h4>
-    <div id="pledge">
-    <% @user.pledges.each do |pledge| %>
-      <%= pledge.reward.project.title %><br />
-      <%= pledge.reward.description %><br />
-      <%= pledge.dollar_amount %><br />
-      <br />
-    <% end  %>
+    <h2>Your Pledges</h2>
+    <% if @user.pledges.count == 0 %>
+      <p>You have no pledges</p>
+    <% else %>
+      <div id="pledge">
+        <table>
+          <tr>
+            <th>Project</th>
+            <th>Reward Description</th>
+            <th>Amount <br /><em> ($ <%= @user.pledges.sum('dollar_amount') %> total)</em></th>
+          </tr>
+        <% @user.pledges.each do |pledge| %>
+          <tr>
+            <td><%= pledge.reward.project.title %></td>
+            <td><%= pledge.reward.description %></td>
+            <td> $ <%= pledge.dollar_amount %></td>
+          </tr>
+        <% end  %>
+      </table>
     </div>
+    <% end %>
   </div>
 
 </div>
