@@ -10,6 +10,26 @@
   padding: 10px;
 }
 
+#profile {
+  margin: auto;
+  background-color: lightgrey;
+  position: relative;
+  width: 85%;
+  top: 70px;
+  border: 7px solid cadetblue;
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 10px;
+}
+
+#projects {
+  float: left;
+}
+
+#pledges {
+  float: right;
+}
+
 #form {
   position: relative;
   left: 25%;
