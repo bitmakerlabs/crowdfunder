@@ -22,6 +22,7 @@ password_confirmation: '11111111')
     description: Faker::Lorem.paragraph,
     goal: rand(100000),
     user_id: rand(1..6),
+    image: "https://placekitten.com/600/395",
     start_date: Time.now.utc - rand(60).days,
     end_date: Time.now.utc + rand(10).days
   )

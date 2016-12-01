@@ -17,6 +17,12 @@
   font-size: 0.75em;
 }
 
+.goal {
+  font-weight: bolder;
+  font-size: 20px;
+  display: inline;
+}
+
 #search_bar {
   background-color: lightgrey;
   position: fixed;
@@ -28,7 +34,37 @@
   border-right: 7px solid cadetblue;
 }
 
+img {
+  float: left;
+}
+
+#goals {
+  float: left;
+  width: 45%;
+  height: 420px;
+  text-align: center;
+}
+
 article {
   width: 80%;
   float: right;
+}
+
+#project_details {
+    margin: auto;
+    background-color: lightgrey;
+    position: relative;
+    width: 95%;
+    top: 70px;
+    border: 7px solid cadetblue;
+    border-radius: 35px;
+    overflow: hidden;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+#reward {
+  display: block;
+  float: left;
+  padding: 20px;
 }
