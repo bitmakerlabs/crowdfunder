@@ -4,7 +4,19 @@ class ProjectsController < ApplicationController
   def index
     @projects = Project.all
     @projects = @projects.order(:end_date)
-    @found_projects = Project.search(params[:title], params[:description], params[:goal])
+
+    if params[:goal_less] == '' && params[:goal_more] == ''
+      @found_projects = Project.search_sans_goal(params[:title], params[:description])
+    elsif params[:goal_less] == '' || params[:goal_more] == ''
+      if params[:goal_less] == ''
+        @found_projects = Project.search_sans_goal_less(params[:title], params[:description], params[:goal_more])
+      else
+        @found_projects = Project.search_sans_goal_more(params[:title], params[:description], params[:goal_less])
+      end
+    else
+      @found_projects = Project.search(params[:title], params[:description], params[:goal_less], params[:goal_more])
+    end
+
   end
 
   def show

@@ -8,8 +8,11 @@
     <p>Description:
     <%= text_field_tag :description, params[:description] %> </p>
 
+    <p>Goal More Than:
+    <%= number_field_tag :goal_more, params[:goal_more] %> </p>
+
     <p>Goal Less Than:
-    <%= number_field_tag :goal, params[:goal] %> </p>
+    <%= number_field_tag :goal_less, params[:goal_less] %> </p>
 
     <%= submit_tag "Search", :name => nil %>
   <% end %>
