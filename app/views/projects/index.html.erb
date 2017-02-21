@@ -1,4 +1,35 @@
-<% @projects.each do |project| %>
+<div id="search_bar">
+
+  <%= form_tag projects_path, :method => 'get' do %>
+    <br>
+    <p>Search Projects</p>
+
+    <p>Title: </p>
+    <%= text_field_tag :title, params[:title] %>
+
+    <p>Description: </p>
+    <%= text_field_tag :description, params[:description] %>
+
+    <p>Goal More Than: </p>
+    <%= number_field_tag :goal_more, params[:goal_more] %>
+
+    <p>Goal Less Than: </p>
+    <%= number_field_tag :goal_less, params[:goal_less] %>
+
+    <%= submit_tag "Search", :name => nil %>
+  <% end %>
+
+<p>
+	<label for="amount">Goal Range:</label>
+	<input type="text" id="amount" readonly style="border:0; color:#333; font-weight:bold;">
+</p>
+
+<div id="slider-range"></div>
+
+</div>
+
+<% @found_projects.each do |project| %>
+<% if Time.now <= project.end_date %>
   <article class="project">
     <%= link_to project, class: 'project-link' do %>
       <figure class="project-image">
@@ -14,6 +45,7 @@
         <%= "#{time_ago_in_words(project.end_date)} #{( project.end_date > Time.now.utc ) ? 'remaining' : 'past deadline'}" %></time>
     <% end %>
   </article>
+  <% end %>
 <% end %>
 
 <%= link_to "New Project", new_project_path %>
