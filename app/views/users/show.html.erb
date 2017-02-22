@@ -1,0 +1,9 @@
+
+<% @projects.each do |project| %>
+  <%= project.title %><br>
+  <%= project.description %><br>
+  <%= project.goal %><br>
+  <%= project.end_date %>
+<% end %><br>
+
+<%= @pledges %>
