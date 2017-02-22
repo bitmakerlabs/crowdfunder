@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
 
   has_many :pledges
   has_many :projects, through: :pledges
+  has_many :projects as: :owned_projects
 
   validates :password, length: { minimum: 4 }, on: :create
   validates :password, confirmation: true, on: :create
