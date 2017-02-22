@@ -1,0 +1,24 @@
+<h1> All the projects that you have pledged towards!</h1>
+
+<% @projects.each do |project| %>
+  <div class="user-project">
+    <p>Title: <%= project.title %></p>
+    <p>Description: <%= project.description %></p>
+    <p>Project Goal: <%= project.goal %><br></p>
+    <p>Deadline: <%= project.end_date %></p>
+  </div>
+<% end %><br>
+
+<div class="total-pledge"><%= "#{@user.first_name} has pledged a total of $#{@pledges}!" %></div>
+
+
+<!-- <h1> All the projects that you own!</h1>
+
+<% @owned_projects.each do |projects| %>
+  <div class="user-project">
+    <p>Title: <%= project.title %></p>
+    <p>Description: <%= project.description %></p>
+    <p>Project Goal: <%= project.goal %><br></p>
+    <p>Deadline: <%= project.end_date %></p>
+  </div>
+<% end %><br> -->

@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+
   def new
     @user = User.new
   end
@@ -11,6 +12,13 @@ class UsersController < ApplicationController
     else
       render 'new'
     end
+  end
+
+  def show
+    @user = User.find(params[:id])
+    @projects = @user.projects
+    @pledges = @user.pledges.sum(:dollar_amount)
+    # @owned_projects = @user.owned_projects
   end
 
   private
