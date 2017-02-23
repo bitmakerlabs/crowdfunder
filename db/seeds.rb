@@ -22,6 +22,7 @@ Project.destroy_all
    p.rewards.create!(
      description: Faker::Superhero.power,
      dollar_amount: rand(100),
+     quantity: rand(250)
    )
  end
 end

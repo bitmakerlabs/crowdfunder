@@ -1,17 +1,23 @@
 class PledgesController < ApplicationController
   before_action :require_login
 
-  def create
-    @pledge = Pledge.new(pledge_params)
-    @pledge.user = current_user
-    @pledge.reward = Reward.find(params[:reward_id])
+  before_action do
+    @reward = Reward.find(params[:reward_id])
+  end
 
-    if @pledge.save
-      redirect_to project_url(@pledge.project), notice: "You have successfully backed #{@pledge.project.title}!"
+  def create
+
+    if @reward.available?
+      @pledge = Pledge.new(pledge_params)
+      @pledge.user = current_user
+      @pledge.reward = Reward.find(params[:reward_id])
+      if @pledge.save
+        redirect_to project_url(@pledge.project), notice: "You have successfully backed #{@pledge.project.title}!"
+      end
     else
-      @project = @pledge.project
-      render 'projects/show'
+      redirect_to project_url, notice: "This reward is unavailable!"
     end
+
   end
 
   private
