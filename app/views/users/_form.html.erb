@@ -1,26 +1,31 @@
+<% if @user.errors.any? %>
+  <div id="error_messages">
+    <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
 <%= form_for @user do |f| %>
   <div class="field">
-     <%= f.label :first_name %><br />
-     <%= f.text_field :first_name %>
+     <%= f.text_field :first_name, :placeholder => 'First Name' %>
   </div>
 
   <div class="field">
-     <%= f.label :last_name %><br />
-     <%= f.text_field :last_name %>
+     <%= f.text_field :last_name, :placeholder => "Last Name" %>
   </div>
 
   <div class="field">
-     <%= f.label :email %><br />
-     <%= f.text_field :email %>
+     <%= f.text_field :email, :placeholder => 'Email' %>
   </div>
 
   <div class="field">
-     <%= f.label :password %><br />
-     <%= f.password_field :password %>
+     <%= f.password_field :password, :placeholder => "Password" %>
   </div>
   <div class="field">
-     <%= f.label :password_confirmation %><br />
-     <%= f.password_field :password_confirmation %>
+     <%= f.password_field :password_confirmation, :placeholder => 'Re-enter password' %>
   </div>
 
   <div class="field">

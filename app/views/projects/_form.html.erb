@@ -1,3 +1,13 @@
+<% if @project.errors.any? %>
+  <div id="error_messages">
+    <ul>
+    <% @project.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
 <%= form_for(@project, html: {multipart: true}) do |f| %>
   <div>
     <%= f.label :title %>
@@ -16,7 +26,7 @@
 
   <div>
     <%= f.label :image %>
-    <%= f.text_field :image %>
+    <%= f.file_field :image, :html => {:multipart => true} %>
   </div>
 
   <div>
@@ -28,6 +38,14 @@
     <%= f.label :end_date %>
     <%= f.datetime_select :end_date %>
   </div>
+
+  <div>
+    <%= f.label :category %>
+    <%#= f.select :category_id, options_from_collection_for_select(Category.all, :id, :category) %>
+    <%= f.select :categories, options_from_collection_for_select(Category.all, :id, :category) %>
+  </div>
+
+    <%= f.hidden_field :owner_id, :value => current_user.id %>
 
   <p>Rewards</p>
 

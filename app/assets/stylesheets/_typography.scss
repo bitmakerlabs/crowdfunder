@@ -1,5 +1,6 @@
 html {
   font-family: $base-font-family;
+  font-weight: 300;
   font-size: 16px;
   line-height: 1.35;
 }
@@ -11,5 +12,15 @@ h4,
 h5,
 h6 {
   font-family: $header-font-family;
+  font-weight: 300;
   line-height: 1.1;
+}
+
+a {
+  font-family: $header-font-family;
+  text-decoration: none;
+}
+
+.small-text {
+  font-size: 0.8em;
 }

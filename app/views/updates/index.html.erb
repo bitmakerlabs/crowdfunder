@@ -1,0 +1,8 @@
+<button id="create-update">Create New Update</button>
+
+<ul>
+  <% @updates.each do |up| %>
+  <p><li>Project: <%= up.project_id %></br>
+  Update: <%= up.body %></br>
+  From: <%= up.user_id %></li></p>
+<% end  %>

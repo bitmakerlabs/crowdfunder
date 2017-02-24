@@ -4,7 +4,9 @@
   box-sizing: inherit;
 }
 
-html {
+html,
+body {
+  height: 100%;
   box-sizing: border-box;
 }
 
@@ -19,4 +21,19 @@ figure {
   & > img {
     display: block;
   }
+}
+
+header {
+  padding: 1em;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: $lightgrey;
+  margin: 0.5em 0;
+}
+
+p {
+  font-size: 1em;
 }

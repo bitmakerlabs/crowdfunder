@@ -9,21 +9,30 @@ Pledge.destroy_all
 Reward.destroy_all
 User.destroy_all
 Project.destroy_all
+Category.destroy_all
+
+10.times do
+  Category.create!(
+  category: Faker::Lorem.word,
+  )
+end
 
 25.times do
   p = Project.create!(
     title: Faker::App.name,
     description: Faker::Lorem.paragraph,
     goal: rand(100000),
-    start_date: Time.now.utc - rand(60).days,
-    end_date: Time.now.utc + rand(10).days
+    start_date: Time.current + rand(5).days,
+    end_date: Time.current + rand(5..30).days
   )
  5.times do
    p.rewards.create!(
      description: Faker::Superhero.power,
-     dollar_amount: rand(100),
+     dollar_amount: rand(100) + 1,
+     quantity: rand(250) + 1
    )
  end
+ p.categories << Category.all.sample
 end
 
 5.times do
@@ -44,3 +53,19 @@ end
     dollar_amount: r.dollar_amount + rand(10)
   )
 end
+
+20.times do
+  project = Project.all.sample
+  Update.create!(
+    project: project,
+  )
+end
+
+User.create(first_name: "Effy", last_name: "Min", email: "effymin@gmail.com",
+    password: "testtest", password_confirmation: "testtest" )
+
+# 
+# Project.create(title: "climbing gym", end_date: Time.current, goal: 100000, description: "This is a serious
+#     project", owner_id: 1)
+#
+# Update.create(body: "I am an update!", project_id: 1)

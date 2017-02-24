@@ -5,23 +5,27 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <%= stylesheet_link_tag    "https://fonts.googleapis.com/css?family=Josefin+Sans:700|Libre+Baskerville" %>
+    <script src="https://use.fontawesome.com/8004be3262.js"></script>
+    <%= stylesheet_link_tag    "https://fonts.googleapis.com/css?family=Open+Sans:300,600|Roboto:300,600" %>
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
   </head>
 
   <body>
+  <div class="main">
     <header class="site-header">
-      <h1 class="logo">Crowdfunder</h1>
+      <h1 class="logo"><i class="fa fa-diamond" aria-hidden="true"></i> <%= link_to "crowdfunder.", root_path %></h1>
 
       <nav class="site-nav">
         <% if current_user %>
+          <%= link_to "Profile", current_user %>
           <%= link_to "Logout", :logout, method: :post %>
         <% else %>
-          <%= link_to "Register", new_user_path %> |
+          <%= link_to "Register", new_user_path %>
           <%= link_to "Login", :login %>
         <% end %>
+
       </nav>
     </header>
 
@@ -34,7 +38,8 @@
     </main>
 
     <footer class="site-footer">
-      <small>A Bitmaker assignment</small>
+      <h1 class="footer-logo">crowdfunder.</h1>
     </footer>
+  </div>
   </body>
 </html>

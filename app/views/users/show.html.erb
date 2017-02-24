@@ -1,0 +1,44 @@
+<hr>
+
+<section class="container">
+
+  <h1>Hey there <span><%= @user.first_name%>!</span></h1>
+
+  <h3>Backed Projects </h3>
+    <h4> You have backed <span><%=@user.backed_projects.count %></span> projects.</h4>
+
+      <% @user.backed_projects.each do |project| %><br />
+        <div class="backed-project">
+          <img src="<%= project.image %>"><br />
+          <p>
+            <%= link_to project.title, project %> <br />
+            <%= project.description %>
+          </p>
+        </div>
+      <% end %>
+
+  <div style="clear: both;"></div>
+  <h2>Total Pledged: <span><%= number_to_currency(@user.pledges.sum(:dollar_amount)) %></span></h2>
+
+</section>
+
+
+<% if @user.projects.any? %>
+  <section class="grey">
+    <section class="container">
+      <h2>Projects</h2>
+        <h3> You have <span><%= @user.projects.count %></span> projects.</h3>
+
+        <% @user.projects.each do |project| %><br />
+        <div class="backed-project">
+          <img src="<%= project.image %>"><br />
+          <p>
+            <%= link_to project.title, project %> <br />
+            <%= project.description %>
+          </p>
+        </div>
+        <% end %>
+      <div style="clear: both;"></div>
+    </section>
+  </section>
+<% end %>

@@ -1,5 +1,10 @@
-<h1>Login</h1>
+<section class="container">
 
-<%= render 'form' %>
+  <div class="centered-form grey">
+    <h1>Login</h1>
+    <%= render 'form' %>
+    <hr>
+    <center><div class="sign-up">Don't have an account? <%= link_to 'Sign up!', new_user_path %></div></center>
+  </div>
 
-<%= link_to 'Back', root_path %>
+</section>

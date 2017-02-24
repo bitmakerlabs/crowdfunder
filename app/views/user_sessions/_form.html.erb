@@ -1,19 +1,15 @@
 <%= form_tag user_sessions_path, :method => :post do %>
   <div class="field">
-    <%= label_tag :email %><br />
-    <%= text_field_tag :email %>
+    <%= text_field_tag :email, nil, placeholder: 'Email' %>
   </div>
   <div class="field">
-    <%= label_tag :password %><br />
-    <%= password_field_tag :password %>
+    <%= password_field_tag :password, nil, placeholder: 'Password' %>
   </div>
-
-  <div class="field">
-    <%= check_box_tag :remember_me %><br />
-    <%= label_tag :remember_me %>
-  </div>
-
   <div class="actions">
     <%= submit_tag "Login" %>
+  </div>
+  <div class="field">
+    <%= check_box_tag :remember_me %>
+    <span class="small-text"> <%= label_tag :remember_me %></span>
   </div>
 <% end %>

@@ -2,17 +2,28 @@ class ProjectsController < ApplicationController
   before_action :require_login, only: [:new, :create]
 
   def index
-    @projects = Project.all
-    @projects = @projects.order(:end_date)
+    @projects = Project.search(params[:search ])
   end
 
   def show
     @project = Project.find(params[:id])
+    @pledges = @project.pledges
+
+    if current_user
+      @update = Update.new
+    end
+
+    respond_to do |format|
+      format.html
+      format.json
+    end
+    
   end
 
   def new
     @project = Project.new
     @project.rewards.build
+    @photo = Photo.new
   end
 
   def create
@@ -27,6 +38,6 @@ class ProjectsController < ApplicationController
 
   private
   def project_params
-    params.require(:project).permit(:title, :description, :goal, :start_date, :end_date, :image, rewards_attributes: [:dollar_amount, :description])
+    params.require(:project).permit(:title, :description, :goal, :start_date, :end_date, :image, :category_id, :owner_id, rewards_attributes: [:dollar_amount, :description, :quantity])
   end
 end
