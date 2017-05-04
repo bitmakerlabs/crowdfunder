@@ -1,4 +1,7 @@
+<%= render partial: 'errors', locals: {errors: @user.errors} %>
+
 <%= form_for @user do |f| %>
+
   <div class="field">
      <%= f.label :first_name %><br />
      <%= f.text_field :first_name %>

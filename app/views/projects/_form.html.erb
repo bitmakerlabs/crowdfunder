@@ -1,3 +1,5 @@
+<%= render partial: 'errors', locals: {errors: @project.errors} %>
+
 <%= form_for(@project, html: {multipart: true}) do |f| %>
   <div>
     <%= f.label :title %>
@@ -18,6 +20,12 @@
     <%= f.label :image %>
     <%= f.text_field :image %>
   </div>
+
+  <div>
+  <%= f.label :upload_image %>
+  <%= f.file_field 'picture' %>
+  </div>
+
 
   <div>
     <%= f.label :start_date %>
