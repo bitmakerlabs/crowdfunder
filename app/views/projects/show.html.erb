@@ -9,6 +9,12 @@
 <p>Fundraising starts: <%= @project.start_date.strftime("%A %b %d %Y") %></p>
 <p>Deadline: <%= @project.end_date.strftime("%A %b %d %Y") %></p>
 
+<% total_pledges = [] %>
+<% @project.pledges.each do |pledge| %>
+  <% total_pledges << pledge.dollar_amount %>
+<% end %>
+<p>Total pledges so far: $<%= total_pledges.sum %></p>
+
 <%= form_for [@project, Pledge.new] do |f| %>
   <%= f.number_field :dollar_amount, value: @project.rewards.minimum(:dollar_amount), step: 0.01 %>
   <%= f.submit "Pledge" %>
@@ -27,3 +33,10 @@
 <% end %>
 
 <%= link_to "Add new reward", new_project_reward_path(@project) %>
+
+<% @pledges.each do |p| %>
+<ul>
+  <li><%= p.user_id %></li>
+  <li><%= p.dollar_amount %></li>
+</ul>
+<%end%>
