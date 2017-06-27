@@ -8,21 +8,30 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
+    @pledges = Pledge.where(project_id: params[:id])
+    @owner = @project.owner
   end
 
   def new
     @project = Project.new
     @project.rewards.build
+    @project.progresses.build
   end
 
   def create
     @project = Project.new(project_params)
+    @project.image = project_params[:image]
+    @project.owner = current_user
 
     if @project.save
       redirect_to projects_url
     else
       render :new
     end
+   end
+
+   def destroy
+
    end
 
   private

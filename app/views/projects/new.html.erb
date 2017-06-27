@@ -1,3 +1,12 @@
-<h1>Create a new project</h1>
-
+<h2>Create a New Project</h2>
+<% if @project.errors.any? %>
+  <div id="error_explanation">
+    <h3>There are <%= @project.errors.count %> issues, please try again:</h3>
+    <ol>
+    <% @project.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ol>
+  </div>
+<% end %>
 <%= render 'form' %>

@@ -44,11 +44,20 @@ GEM
     bindex (0.5.0)
     builder (3.2.3)
     byebug (9.0.6)
+    carrierwave (1.1.0)
+      activemodel (>= 4.0.0)
+      activesupport (>= 4.0.0)
+      mime-types (>= 1.16)
     coderay (1.1.1)
     concurrent-ruby (1.0.5)
     docile (1.1.5)
     erubi (1.6.0)
     execjs (2.7.0)
+    factory_girl (4.8.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.8.0)
+      factory_girl (~> 4.8.0)
+      railties (>= 3.0.0)
     faker (1.7.3)
       i18n (~> 0.5)
     faraday (0.12.1)
@@ -126,6 +135,8 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-rails (0.3.6)
+      pry (>= 0.10.4)
     puma (3.9.1)
     rack (2.0.3)
     rack-test (0.6.3)
@@ -214,6 +225,8 @@ PLATFORMS
 DEPENDENCIES
   bcrypt (~> 3.1.7)
   byebug
+  carrierwave (~> 1.0)
+  factory_girl_rails
   faker
   font-awesome-sass (~> 4.7.0)
   guard (~> 2.14.0)
@@ -224,6 +237,7 @@ DEPENDENCIES
   minitest-rails
   minitest-reporters
   pg
+  pry-rails
   puma (~> 3.0)
   rails (~> 5.1.1)
   rails-controller-testing

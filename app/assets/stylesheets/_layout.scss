@@ -1,11 +1,105 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  max-width: 800px;
+  width: 100%;
+  margin: auto;
+}
+
+main {
+  clear: both;
+  padding: .5em;
+}
+
 .site-header {
   text-align: center;
   margin-bottom: 1rem;
+  padding: 1em 0;
 }
 
 .logo {
   margin: 0;
   text-align: center;
   line-height: 50px;
-  font-size: 1.5rem;
+  font-size: 2rem;
+  display: inline-block;
+  float: left;
+}
+
+footer {
+  text-align: center;
+  font-size: 1em;
+  margin: 1rem 0;
+  padding: 2rem;
+  border: 1px solid #eeeeee;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.2s cubic-bezier(.25,.8,.25,1);
+  clear: both;
+}
+
+.site-nav {
+  float: right;
+  padding: 1em;
+}
+
+a {
+  color: #353535;
+}
+
+a:hover {
+  color: #2BDE73;
+}
+
+.new-project-bar {
+  width: 100%;
+  background-color: #2BDE73;
+  text-align: center;
+  padding: 1em 0;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.2s cubic-bezier(.25,.8,.25,1);
+}
+
+.new-project-bar a {
+  color: white;
+  font-size: 1.5em;
+}
+
+.new-project-bar a:hover {
+  color: #353535;
+}
+
+hr {
+  border: 1px dashed #2BDE73;
+}
+
+input {
+  width: 100%;
+  padding: 1em;
+}
+
+.flash-alert, .flash-notice {
+  clear:  both;
+  padding: 1em 0;
+  font-size: 1.5em;
+  color: #de662b;
+}
+
+.file-button {
+  background: #eeeeee;
+  color: #353535;
+}
+
+.progress-box {
+  width: 66%;
+  clear: both;
+  float: left;
+}
+
+.progress-info {
+  background: #eeeeee;
+  padding: 1em;
 }

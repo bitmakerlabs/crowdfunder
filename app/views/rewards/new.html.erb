@@ -1,5 +1,16 @@
 <h1>Add a reward for <%= @project.title %></h1>
 
+<% if @reward.errors.any? %>
+  <div id="error_explanation">
+    <h3>There are <%= @reward.errors.count %> issues, please try again:</h3>
+    <ol>
+    <% @reward.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ol>
+  </div>
+<% end %>
+
 <%= form_for [@project, @reward] do |f| %>
   <div>
     <%= f.label :dollar_amount %>

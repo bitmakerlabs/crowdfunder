@@ -1,4 +1,15 @@
-<h1>Sign up?</h1>
+<h2>Create an Account</h2>
+
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    <h3>There are <%= @user.errors.count %> issues, please try again:</h3>
+    <ol>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ol>
+  </div>
+<% end %>
 
 <%= render 'form' %>
 

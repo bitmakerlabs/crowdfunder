@@ -1,29 +1,71 @@
-<h1><%= @project.title %></h1>
-
-<% if @project.image.present? %>
+<article class="project">
+  <% if @project.image.present? %>
   <%= image_tag @project.image %>
-<% end %>
+  <% end %>
+  <h1><%= @project.title %></h1>
+  <h3>Project owner: <%= link_to "#{@owner.first_name} #{@owner.last_name}", @owner %></h3>
+  <p><%= @project.progress_bar %>% funded</p>
+</article>
 
-<p><%= @project.description %></p>
-<p>Goal: <%= number_to_currency(@project.goal) %></p>
-<p>Fundraising starts: <%= @project.start_date.strftime("%A %b %d %Y") %></p>
-<p>Deadline: <%= @project.end_date.strftime("%A %b %d %Y") %></p>
+<div class="project-description">
+  <h3>About the Project:</h3>
+  <p><%= @project.description %></p>
+</div>
 
-<%= form_for [@project, Pledge.new] do |f| %>
-  <%= f.number_field :dollar_amount, value: @project.rewards.minimum(:dollar_amount), step: 0.01 %>
-  <%= f.submit "Pledge" %>
-<% end %>
+<div class="project-details">
+  <h3>Goal:</h3>
+  <p><%= number_to_currency(@project.goal) %></p>
+  <hr>
+  <h3>Total pledges so far:</h3>
+  <p>$<%= @project.total_pledges %></p>
+  <hr>
+  <% if @project.time_left < 0 %>
+  <h1>This project ended <%= "#{time_ago_in_words(@project.end_date)}" %> ago</h1>
+  <% else %>
+  <h3>Time left to pledge:</h3>
+  <p><%= "#{time_ago_in_words(@project.end_date)} #{( @project.end_date > Time.now.utc ) ? '' : ''}" %></p>
+  <hr>
+</div>
 
-<h2>Rewards</h2>
+<% unless current_user == @project.owner %>
+  <div class="pledge-box">
+    <br>
+    <%= form_for [@project, Pledge.new] do |f| %>
+    <%= f.number_field :dollar_amount, value: @project.rewards.minimum(:dollar_amount), step: 1.00, placeholder: '$' %>
+    <%= f.submit "Make a Pledge" %>
+    <% end %>
+    <% end %>
+  <% end %>
+</div>
+<br>
+<div class="progress-box">
+  <h3>Progress Updates From <%= link_to "#{@owner.first_name} #{@owner.last_name}", @owner %></h3>
+  <% if  current_user == @project.owner %>
+    <p><%= link_to "Add Progress", new_project_progress_path(@project)  %></p>
+    <!-- <p> <%= link_to "Edit Progress", edit_project_progress_path(@project)  %> </p>
+    <p><%=link_to("Delete", project_progress_url(@project), method: :destroy, data: {confirm: "Are you sure you want to delete?"}) %></p> -->
+  <% end %>
+  <% @project.progresses.each do |progress| %>
+    <h4><%= progress.progress_title %></h4>
+    <time><strong><p>Updated <%= time_ago_in_words(progress.created_at) %> ago</p></strong></time>
+    <p class="progress-info"><%= progress.progress_description %></p>
+  <% end %>
+</div>
+
+<!-- <h3>Rewards</h3>
 <% @project.rewards.each do |reward| %>
-  <p><%= number_to_currency(reward.dollar_amount) %></p>
-  <p><%= reward.description %></p>
-
-  <p>
-    <small>
-      <%= link_to "Remove reward", project_reward_path(@project, reward), method: 'delete' %>
-    </small>
-  </p>
+<p><%= number_to_currency(reward.dollar_amount) %></p>
+<p><%= reward.description %></p>
+<p>
+  <small>
+    <%= link_to "Remove reward", project_reward_path(@project, reward), method: 'delete' %>
+  </small>
+</p>
 <% end %>
-
 <%= link_to "Add new reward", new_project_reward_path(@project) %>
+<% @pledges.each do |p| %>
+<ul>
+  <li><%= p.user_id %></li>
+  <li><%= p.dollar_amount %></li>
+</ul>
+<%end%> -->

@@ -8,6 +8,7 @@ class PledgeTest < ActiveSupport::TestCase
       project: new_project,
       user: new_user
     )
+    pledge.user = User.new
     pledge.save
     assert pledge.valid?
     assert pledge.persisted?

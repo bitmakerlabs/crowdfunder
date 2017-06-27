@@ -1,0 +1,27 @@
+<h2>Add Progress Report for <%= @project.title %> </h2>
+
+<% if @progress.errors.any? %>
+  <div id="error_explanation">
+    <h3>There are <%= @progress.errors.count %> issues, please try again:</h3>
+    <ol>
+    <% @progress.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ol>
+  </div>
+<% end %>
+
+<%= form_for [@project, @progress] do |f| %>
+  <div>
+    <%= f.label :progress_title %>
+    <%= f.text_field :progress_title %>
+  </div>
+  <br>
+  <div>
+    <%= f.label :progress_description %>
+    <%= f.text_area :progress_description %>
+  </div>
+  <br>
+  <%= f.submit %>
+  <br>
+<% end %>

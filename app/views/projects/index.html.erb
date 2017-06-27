@@ -1,4 +1,6 @@
-<%= link_to "New Project", new_project_path %>
+<div class="new-project-bar">
+  <%= link_to "Start a New Project!", new_project_path %>
+</div>
 
 <% @projects.each do |project| %>
   <article class="project">
@@ -11,9 +13,11 @@
         <% end %>
       </figure>
       <h1 class="project-title"><%= project.title %></h1>
+      <br>
       <time class="project-days-left">
         <%= icon('clock-o') %>
         <%= "#{time_ago_in_words(project.end_date)} #{( project.end_date > Time.now.utc ) ? 'remaining' : 'past deadline'}" %></time>
+        <p><%= project.progress_bar %>% funded</p>
     <% end %>
   </article>
 <% end %>

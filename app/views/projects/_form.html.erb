@@ -3,31 +3,34 @@
     <%= f.label :title %>
     <%= f.text_field :title %>
   </div>
-
+  <br>
   <div>
     <%= f.label :description %>
-    <%= f.text_field :description %>
+    <%= f.text_area :description %>
   </div>
-
+  <br>
   <div>
     <%= f.label :goal %>
     <%= f.number_field :goal %>
   </div>
-
+  <br>
   <div>
     <%= f.label :image %>
-    <%= f.text_field :image %>
+    <div class="file-button">
+      <%= f.file_field :image %>
+    </div>
   </div>
-
+  <br>
   <div>
     <%= f.label :start_date %>
     <%= f.datetime_select :start_date %>
   </div>
-
+  <br>
   <div>
     <%= f.label :end_date %>
     <%= f.datetime_select :end_date %>
   </div>
-
+  <br>
   <%= f.submit %>
+  <br>
 <% end %>

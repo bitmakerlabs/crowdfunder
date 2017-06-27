@@ -1,17 +1,30 @@
 input[type=text],
+input[type=number],
 input[type=password],
 input[type=email] {
-  padding: 0.25em 0.5em;
+  padding: 1em;
+  border: 0;
   border: 1px solid #f0f0f0;
+  font-family: $base-font-family;
 }
 
 input[type=submit] {
-  padding: 0.5em;
+  padding: 1em;
   color: white;
-  background-color: cadetblue;
+  background-color: #2BDE73;
   border: 0;
+  border-radius: 3px;
+  font-family: $base-font-family;
 
   &:hover {
-    background-color: darken(cadetblue, 8%);
+    color: #353535;
   }
+}
+
+textarea {
+  width: 100%;
+  padding: 1em;
+  border: 0;
+  border: 1px solid #f0f0f0;
+  font-family: $base-font-family;
 }
