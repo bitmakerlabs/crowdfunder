@@ -5,4 +5,11 @@ class Project < ActiveRecord::Base
   belongs_to :owner, class_name: 'User'
 
   validates :owner, :title, :description, :goal, :start_date, :end_date, presence: true
+
+  validate :date_in_future?
+
+  def date_in_future?
+    start_date < Date.today
+    errors.add(:start_date, "must be in the future")
+  end
 end
