@@ -3,6 +3,7 @@ ENV['RAILS_ENV'] ||= 'test'
 # To generate a test coverage report for the models,
 # instead of just the usual `rake` to run tests, use:
 # COVERAGE=true rake
+
 require 'simplecov'
 if ENV['COVERAGE']
   SimpleCov.start 'rails' do
@@ -18,4 +19,5 @@ require 'rails/test_help'
 class ActionController::TestCase
   include Sorcery::TestHelpers::Rails::Integration
   include Sorcery::TestHelpers::Rails::Controller
+  include FactoryGirl::Syntax::Methods
 end
