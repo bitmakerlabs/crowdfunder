@@ -21,10 +21,13 @@ class ProjectTest < ActiveSupport::TestCase
   end
 
   test 'project start date must be in the future' do
+    owner = new_user
+    owner.save
     project = new_project
-    project.start_date = Date.today - 1.day
-
-    assert project.invalid?, 'Project start date must be in the future'
+    project.owner = owner
+    project.start_date = Date.today + 10.days
+    project.save
+    assert project.valid?, 'Project start date must be in the future'
   end
 
   def new_project

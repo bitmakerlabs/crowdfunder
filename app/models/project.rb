@@ -9,7 +9,8 @@ class Project < ActiveRecord::Base
   validate :date_in_future?
 
   def date_in_future?
-    start_date < Date.today
-    errors.add(:start_date, "must be in the future")
+    if self.start_date < Date.today
+      errors.add(:start_date, "must be in the future")
+    end
   end
 end
