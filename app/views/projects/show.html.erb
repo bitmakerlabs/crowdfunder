@@ -18,12 +18,15 @@
 <% @project.rewards.each do |reward| %>
   <p><%= number_to_currency(reward.dollar_amount) %></p>
   <p><%= reward.description %></p>
-
+  <% if @project.owner == current_user %>
   <p>
     <small>
       <%= link_to "Remove reward", project_reward_path(@project, reward), method: 'delete' %>
     </small>
   </p>
-<% end %>
 
+  <% end %>
+<% end %>
+<% if @project.owner == current_user %>
 <%= link_to "Add new reward", new_project_reward_path(@project) %>
+<% end %>
