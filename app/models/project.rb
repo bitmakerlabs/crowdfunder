@@ -25,12 +25,4 @@ class Project < ActiveRecord::Base
   def total_pledged
     self.pledges.inject(0) { |sum, pledge|  sum + pledge.dollar_amount }
   end
-
-  def backed?
-    if current_user == pledges.user_id
-      "You have already back this project"
-    else
-      "You have not backed this project"
-    end
-  end
 end
