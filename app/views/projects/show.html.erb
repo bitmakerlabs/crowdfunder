@@ -23,6 +23,7 @@
 <p>Goal: <%= number_to_currency(@project.goal) %></p>
 <p>Fundraising starts: <%= @project.start_date.strftime("%A %b %d %Y") %></p>
 <p>Deadline: <%= @project.end_date.strftime("%A %b %d %Y") %></p>
+<p>The total amount pledged for this project is : $<%= @project.total_pledged %></p>
 
 <h2>Rewards</h2>
 <% @project.rewards.each do |reward| %>
