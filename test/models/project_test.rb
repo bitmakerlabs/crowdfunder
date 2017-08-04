@@ -9,10 +9,9 @@ class ProjectTest < ActiveSupport::TestCase
 
 
   test 'valid project can be created' do
-    skip
-    owner = new_user
+    owner = build(:user)
     owner.save
-    project = new_project
+    project = build(:project)
     project.owner = owner
     project.save
     assert project.valid?
@@ -21,18 +20,16 @@ class ProjectTest < ActiveSupport::TestCase
   end
 
   test 'project is invalid without owner' do
-    skip
-    project = new_project
+    project = build(:project)
     project.owner = nil
     project.save
     assert project.invalid?, 'Project should not save without owner.'
   end
 
   test 'project start date must be in the future' do
-    skip
-    owner = new_user
+    owner = build(:user)
     owner.save
-    project = new_project
+    project = build(:project)
     project.owner = owner
     project.start_date = Date.today - 10.days
     project.save
@@ -40,10 +37,9 @@ class ProjectTest < ActiveSupport::TestCase
   end
 
   test 'project end date must be later than start date' do
-    skip
-    owner = new_user
+    owner = build(:user)
     owner.save
-    project = new_project
+    project = build(:project)
     project.owner = owner
     project.start_date = Date.today
     project.end_date = Date.today - 1.month
@@ -53,10 +49,9 @@ class ProjectTest < ActiveSupport::TestCase
   end
 
   test 'project goal must be a positive number' do
-    skip
-    owner = new_user
+    owner = build(:user)
     owner.save
-    project = new_project
+    project = build(:project)
     project.owner = owner
     project.goal = -10000
     project.save

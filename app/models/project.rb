@@ -21,4 +21,8 @@ class Project < ActiveRecord::Base
       errors.add(:end_date, "must be later than start date")
     end
   end
+
+  def total_pledged
+    self.pledges.inject(0) { |sum, pledge|  sum + pledge.dollar_amount }
+  end
 end
