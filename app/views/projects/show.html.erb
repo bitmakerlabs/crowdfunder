@@ -10,13 +10,23 @@
 
 <% if @project.owner != current_user %>
 
-<%= form_for [@project, @pledge] do |f| %>
-<%= f.number_field :dollar_amount, value: @project.rewards.minimum(:dollar_amount), step: 0.01 %>
-<%= f.submit "Pledge" %>
+  <%= form_for [@project, @pledge] do |f| %>
+    <%= f.number_field :dollar_amount, value: @project.rewards.minimum(:dollar_amount), step: 0.01 %>
+    <%= f.submit "Pledge" %>
+  <% end %>
 <% end %>
-<% end %>
+
 <% if @project.image.present? %>
   <%= image_tag @project.image %>
+<% end %>
+
+<% if @project.owner == current_user %>
+  <h3>These users back your project!</h3>
+  <ul>
+    <% @pledges.each do |pledge| %>
+    <li>$<%= pledge.dollar_amount %> | <%= pledge.user.first_name %> <%= pledge.user.last_name %> | <%= pledge.user.email %></li>
+    <% end %>
+  </ul>
 <% end %>
 
 <p><%= @project.description %></p>

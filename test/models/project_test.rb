@@ -79,29 +79,18 @@ class ProjectTest < ActiveSupport::TestCase
     )
   end
 
-  test 'project can list backers' do # !!!!!!!!!
-    skip
-    backer = new_user
-    backer.save
-    project = new_project
-    project.owner = backer
+  test 'project can list backers' do # !!!!!! test broken
+    project = build(:project)
+    backer = project.owner
     project.save
-    pledger = User.new(
-      first_name:             'Sam',
-      last_name:              'Jones',
-      email:                  'sam234567@gmail.com',
-      password:               '123412345h',
-      password_confirmation:  '123412345h'
-      )
-    pledger.save
-    pledge = Pledge.new(project: project, dollar_amount: 100)
-    # pledge does not have user id
-    pledge.user = pledger
-    # byebug
-
+    pledger = create(:user)
+    pledge = build(:pledge)
+    pledger = pledge.user
+    pledge.project_id = project.id
     pledge.save
-    assert_equal project.backers, User.where(user_id: backer.user_id)
-
+    # byebug
+    # no method error for project
+    assert project.pledges
   end
 
 end
