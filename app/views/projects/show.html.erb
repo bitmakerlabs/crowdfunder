@@ -1,7 +1,16 @@
 <h1><%= @project.title %></h1>
+
+<% if @pledge.errors.any?  %>
+  <ul>
+    <% @pledge.errors.full_messages.each do |m| %>
+    <li><%= m %> </li>
+    <% end %>
+  </ul>
+<% end %>
+
 <% if @project.owner != current_user %>
 
-<%= form_for [@project, Pledge.new] do |f| %>
+<%= form_for [@project, @pledge] do |f| %>
 <%= f.number_field :dollar_amount, value: @project.rewards.minimum(:dollar_amount), step: 0.01 %>
 <%= f.submit "Pledge" %>
 <% end %>
