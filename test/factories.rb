@@ -21,7 +21,7 @@ FactoryGirl.define do
   end
 
   factory :pledge do
-    dollar_amount 100
+    # dollar_amount 100
     user
     project
   end

@@ -2,9 +2,19 @@ require_relative '../test_helper'
 
 class PledgeTest < ActiveSupport::TestCase
 
-  test "pledge factory" do
-    new_pledge = build(:pledge)
-    assert new_pledge.valid?
+  # test "pledge factory" do
+  #   new_pledge = build(:pledge)
+  #   assert new_pledge.valid?
+  # end
+
+  test 'dollar amount should be a required field for pledges' do
+    project = build(:project)
+    project.save
+    pledge = build(:pledge, dollar_amount: -100)
+    pledge.save
+    # byebug
+
+    assert pledge.invalid? 'Pledge must have a dollar amount'
   end
 
   test 'A pledge can be created' do
