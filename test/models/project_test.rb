@@ -79,7 +79,7 @@ class ProjectTest < ActiveSupport::TestCase
     )
   end
 
-  test 'project can list backers' do # !!!!!! test broken
+  test 'project can list backers' do
     project = build(:project)
     backer = project.owner
     project.save
@@ -88,8 +88,6 @@ class ProjectTest < ActiveSupport::TestCase
     pledger = pledge.user
     pledge.project_id = project.id
     pledge.save
-    # byebug
-    # no method error for project
     assert project.pledges
   end
 
