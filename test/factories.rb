@@ -20,7 +20,6 @@ FactoryGirl.define do
   end
 
   factory :pledge do
-    # dollar_amount 100
     user
     project
   end
@@ -33,6 +32,10 @@ FactoryGirl.define do
     end_date Date.today + 3.months
     association :owner, factory: :project_owner, first_name: "Jane"
   end
-  
+
+  factory :reward do
+    project
+  end
+
 
 end
