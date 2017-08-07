@@ -1,0 +1,23 @@
+
+Divide and Conquer
+
+Albert
+
+*** Create a home page for the app that shows a summary of how many projects have
+been started, how many have been funded, how much money has been pledged towards
+successful projects in total
+**** User test refactor
+
+Mary
+
+
+***! As a user, when I go to a project’s page, it should tell me if I have already
+          backed that project or not
+*** As a user, when I go to a project’s page, it should tell me how much time is
+          left until the funding deadline (like it does on the project index currently)
+*** Pledge test refactor + pledge factory 
+
+Stan
+
+*** dollar_amount should be a required field for pledges
+*** reward test refactor

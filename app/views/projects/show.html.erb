@@ -1,29 +1,53 @@
 <h1><%= @project.title %></h1>
 
+<% if @pledge.errors.any?  %>
+  <ul>
+    <% @pledge.errors.full_messages.each do |m| %>
+    <li><%= m %> </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if @project.owner != current_user %>
+
+  <%= form_for [@project, @pledge] do |f| %>
+    <%= f.number_field :dollar_amount, value: @project.rewards.minimum(:dollar_amount), step: 0.01 %>
+    <%= f.submit "Pledge" %>
+  <% end %>
+<% end %>
+
 <% if @project.image.present? %>
   <%= image_tag @project.image %>
+<% end %>
+
+<% if @project.owner == current_user %>
+  <h3>These users back your project!</h3>
+  <ul>
+    <% @pledges.each do |pledge| %>
+    <li>$<%= pledge.dollar_amount %> | <%= pledge.user.first_name %> <%= pledge.user.last_name %> | <%= pledge.user.email %></li>
+    <% end %>
+  </ul>
 <% end %>
 
 <p><%= @project.description %></p>
 <p>Goal: <%= number_to_currency(@project.goal) %></p>
 <p>Fundraising starts: <%= @project.start_date.strftime("%A %b %d %Y") %></p>
 <p>Deadline: <%= @project.end_date.strftime("%A %b %d %Y") %></p>
-
-<%= form_for [@project, Pledge.new] do |f| %>
-  <%= f.number_field :dollar_amount, value: @project.rewards.minimum(:dollar_amount), step: 0.01 %>
-  <%= f.submit "Pledge" %>
-<% end %>
+<p>The total amount pledged for this project is : $<%= @project.total_pledged %></p>
 
 <h2>Rewards</h2>
 <% @project.rewards.each do |reward| %>
   <p><%= number_to_currency(reward.dollar_amount) %></p>
   <p><%= reward.description %></p>
-
+  <% if @project.owner == current_user %>
   <p>
     <small>
       <%= link_to "Remove reward", project_reward_path(@project, reward), method: 'delete' %>
     </small>
   </p>
-<% end %>
 
+  <% end %>
+<% end %>
+<% if @project.owner == current_user %>
 <%= link_to "Add new reward", new_project_reward_path(@project) %>
+<% end %>
