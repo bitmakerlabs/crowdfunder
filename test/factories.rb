@@ -2,7 +2,6 @@ FactoryGirl.define do
 
   factory :project_owner, class: User do
     first_name "Jane"
-    # email "jane12345@gmail.com"
     sequence :email do |n|
       "#{first_name}#{n}@example.com"
     end
@@ -34,5 +33,6 @@ FactoryGirl.define do
     end_date Date.today + 3.months
     association :owner, factory: :project_owner, first_name: "Jane"
   end
+  
 
 end
