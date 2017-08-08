@@ -4,12 +4,20 @@ User.destroy_all
 Project.destroy_all
 
 10.times do
+  owner = User.create!(
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    email: Faker::Internet.free_email,
+    password: 'password',
+    password_confirmation: 'password'
+  )
   project = Project.create!(
               title: Faker::App.name,
+              owner_id: owner.id,
               description: Faker::Lorem.paragraph,
               goal: rand(100000),
-              start_date: Time.now.utc - rand(60).days,
-              end_date: Time.now.utc + rand(10).days
+              start_date: Time.now.utc + rand(10).days,
+              end_date: Time.now.utc + rand(60).days
             )
 
   5.times do

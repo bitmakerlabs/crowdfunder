@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'pry'
 
 class RewardTest < ActiveSupport::TestCase
 
@@ -15,6 +16,7 @@ class RewardTest < ActiveSupport::TestCase
   end
 
   test 'A reward cannot be created without a dollar amount' do
+    skip
     project = new_project
     project.save
     reward = Reward.create(
@@ -26,6 +28,7 @@ class RewardTest < ActiveSupport::TestCase
   end
 
   test 'A reward cannot be created without a description' do
+
     project = new_project
     project.save
     reward = Reward.create(
@@ -36,6 +39,17 @@ class RewardTest < ActiveSupport::TestCase
     assert reward.new_record?, 'Reward should not save without a description'
   end
 
+  test 'reward amount must be a positive number' do
+
+      project = new_project
+      project.save
+      reward = new_reward(project)
+      reward.save
+      reward.dollar_amount = -1
+      binding.pry
+    assert reward.invalid?
+  end
+
   def new_project
     Project.new(
       title:       'Cool new boardgame',
@@ -43,6 +57,14 @@ class RewardTest < ActiveSupport::TestCase
       start_date:  Date.today,
       end_date:    Date.today + 1.month,
       goal:        50000
+    )
+  end
+
+  def new_reward(project)
+    Reward.new(
+    dollar_amount: 20,
+    description: 'This is a reward',
+    project: project
     )
   end
 

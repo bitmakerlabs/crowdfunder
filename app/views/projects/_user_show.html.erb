@@ -1,0 +1,11 @@
+<h2>Pledges</h2>
+
+<p>
+  $<%= @project.pledges.map(&:dollar_amount).sum %>
+</p>
+
+<h2> Pledge this project </h2>
+<%= form_for [@project, Pledge.new] do |f| %>
+  <%= f.number_field :dollar_amount, value: @project.rewards.minimum(:dollar_amount), step: 0.01 %>
+  <%= f.submit "Pledge" %>
+<% end %>

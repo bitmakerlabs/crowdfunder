@@ -8,6 +8,7 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
+
   end
 
   def new
@@ -17,6 +18,7 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new(project_params)
+    @project.owner_id = current_user.id
 
     if @project.save
       redirect_to projects_url
@@ -27,6 +29,6 @@ class ProjectsController < ApplicationController
 
   private
   def project_params
-    params.require(:project).permit(:title, :description, :goal, :start_date, :end_date, :image)
+    params.require(:project).permit(:owner_id, :title, :description, :goal, :start_date, :end_date, :image)
   end
 end
