@@ -1,0 +1,22 @@
+<h1>Hi <%= current_user.first_name %></h1>
+<p>You have backed a total of <%= number_to_currency(current_user.pledges.map {|pledge| pledge.dollar_amount}.sum) %> on Crowfunder!</p>
+
+
+<h2>My Projects</h2>
+<% current_user.projects.each do |project| %>
+  <h3><%= project.title %></h3>
+  <time>
+    <%= icon('clock-o') %>
+    <%= "#{time_ago_in_words(project.end_date)} #{( project.end_date > Time.now.utc ) ? 'remaining' : 'past deadline'}" %></time>
+  <p>Total Raised To Date: <%= number_to_currency(project.pledges.map { |pledge| pledge.dollar_amount }.sum) %></p>
+<% end %>
+
+<h2>Backed Projects</h2>
+<% @backed_projects.each do |backed_project| %>
+  <h3><%= backed_project.title %></h3>
+  <% current_user.pledges.where(project: backed_project).each do |pledge| %>
+    <ul>
+      <li><%= number_to_currency(pledge.dollar_amount) %></li>
+    </ul>
+  <% end %>
+<% end %>

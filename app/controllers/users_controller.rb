@@ -17,4 +17,8 @@ class UsersController < ApplicationController
       render 'new'
     end
   end
+
+  def show
+    @backed_projects = current_user.pledged_projects.uniq
+  end
 end

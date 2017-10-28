@@ -4,11 +4,18 @@ Rails.application.routes.draw do
   get 'login' => 'user_sessions#new', :as => :login
   delete 'logout' => 'user_sessions#destroy', :as => :logout
 
+  get 'search' =>'projects#search', :as => :search
+
   resources :projects, only: [:index, :new, :create, :show] do
+    resources :project_updates, except: [:index]
     resources :pledges, only: [:create]
-    resources :rewards, only: [:new, :create, :destroy]
+    resources :rewards, only: [:new, :create, :destroy, :update] do
+      member do
+        patch :claim
+      end
+    end
   end
-  resources :users, only: [:new, :create]
+  resources :users, only: [:new, :create, :show]
   resources :user_sessions, only: [:create]
 
   # The priority is based upon order of creation: first created -> highest priority.
