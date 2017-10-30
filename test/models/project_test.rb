@@ -14,10 +14,93 @@ class ProjectTest < ActiveSupport::TestCase
   end
 
   test 'project is invalid without owner' do
+    # Arrange
     project = new_project
     project.user = nil
+    # Act
     project.save
+    # Assert
     assert project.invalid?, 'Project should not save without owner.'
+  end
+
+  test 'project start date is not in the past' do
+    project = Project.new(
+      title: 'Cooler boardgame',
+      description: 'trade cool',
+      start_date: Date.today - 1.month,
+      end_date: Date.today + 1.month,
+      goal: 20000
+    )
+    # Act
+    project.save
+    #assert
+    assert project.invalid?, 'Project start date must not be in the past'
+  end
+
+  test 'project end date must be later than start date' do
+    project = Project.new(
+      title: 'Cooler boardgame',
+      description: 'trade cool',
+      start_date: Date.today,
+      end_date: Date.today,
+      goal: 20000
+    )
+
+    project.save
+    assert project.invalid?, 'Project end date must be later than end date'
+  end
+
+  test 'project is invalid with goal = 0' do
+    owner = new_user
+    owner.save
+    project = new_project
+    project.user = owner
+    project.goal = 0
+    project.save
+    assert project.invalid?, 'Project should have a goal that is greater than 0.'
+  end
+
+  test 'project is invalid with goal < 0' do
+    owner = new_user
+    owner.save
+    project = new_project
+    project.user = owner
+    project.goal = -1
+    project.save
+    assert project.invalid?, 'Project should have a goal that is positive.'
+  end
+
+  test 'Search for a project that exists' do
+    owner = new_user
+    owner.save
+    project = new_project
+    project.user = owner
+    project.save
+    expected = [project]
+    result = Project.search(project.title)
+    assert_equal expected, result
+  end
+
+  test 'empty_search_returns_nothing' do
+    owner = new_user
+    owner.save
+    project = new_project
+    project.user = owner
+    project.save
+    expected = []
+    result = Project.search("")
+    assert_equal expected, result
+  end
+
+  test 'search_for_a_project_that_doesnt_exist_returns_nothing' do
+    owner = new_user
+    owner.save
+    project = new_project
+    project.user = owner
+    project.save
+    expected = []
+    result = Project.search("sdifgjo")
+    assert_equal expected, result
   end
 
   def new_project
@@ -39,5 +122,4 @@ class ProjectTest < ActiveSupport::TestCase
       password_confirmation: 'passpass'
     )
   end
-
 end

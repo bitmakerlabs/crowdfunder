@@ -21,4 +21,10 @@ class UserTest < ActiveSupport::TestCase
     user = User.new(email: "bettymaker@gmail.com", password: "1234", password_confirmation: "1234")
     refute user.valid?
   end
+
+  test "error messages displays if validations not met" do
+    User.new(email: "bettymaker@gmail.com", password: "1234", password_confirmation: "1234")
+    user = User.new(email: "bettymaker@gmail.com", password: "1234", password_confirmation: "1234")
+    refute user.valid?
+  end
 end

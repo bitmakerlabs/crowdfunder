@@ -36,6 +36,32 @@ class RewardTest < ActiveSupport::TestCase
     assert reward.new_record?, 'Reward should not save without a description'
   end
 
+  test 'reward is invalid with dollar_amount = 0' do
+    owner = new_user
+    owner.save
+    project = new_project
+    project.user = owner
+    project.save
+    reward = new_reward
+    reward.project = project
+    reward.dollar_amount = 0
+    reward.save
+    assert reward.invalid?, 'Reward should have a dollar_amount that is greater than 0.'
+  end
+
+  test 'reward is invalid with negative dollar_amount' do
+    owner = new_user
+    owner.save
+    project = new_project
+    project.user = owner
+    project.save
+    reward = new_reward
+    reward.project = project
+    reward.dollar_amount = -1
+    reward.save
+    assert reward.invalid?, 'Reward should have a dollar_amount that is positive.'
+  end
+
   def new_project
     Project.new(
       title:       'Cool new boardgame',
@@ -46,4 +72,19 @@ class RewardTest < ActiveSupport::TestCase
     )
   end
 
+  def new_user
+    User.new(
+      first_name:            'Sally',
+      last_name:             'Lowenthal',
+      email:                 'sally@example.com',
+      password:              'passpass',
+      password_confirmation: 'passpass'
+    )
+  end
+
+  def new_reward
+    Reward.new(
+      description: "elephant"
+    )
+  end
 end
