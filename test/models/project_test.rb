@@ -2,6 +2,15 @@ require 'test_helper'
 
 class ProjectTest < ActiveSupport::TestCase
 
+  test "project start_date must be in future" do
+    owner = new_user
+    owner.save
+    project = new_project2
+    project.user = owner
+    project.save
+    assert project.invalid?
+  end
+
   test 'valid project can be created' do
     owner = new_user
     owner.save
@@ -15,9 +24,9 @@ class ProjectTest < ActiveSupport::TestCase
 
   test 'project is invalid without owner' do
     project = new_project
-    project.user = nil
+    project.user_id = nil
     project.save
-    assert project.invalid?, 'Project should not save without owner.'
+    assert project.invalid?
   end
 
   def new_project
@@ -25,6 +34,16 @@ class ProjectTest < ActiveSupport::TestCase
       title:       'Cool new boardgame',
       description: 'Trade sheep',
       start_date:  Date.today,
+      end_date:    Date.today + 1.month,
+      goal:        50000
+    )
+  end
+
+  def new_project2
+    Project.new(
+      title:       'SpaceShip Wow',
+      description: 'We wont stop til Mars',
+      start_date:  Date.yesterday,
       end_date:    Date.today + 1.month,
       goal:        50000
     )
