@@ -3,7 +3,7 @@ class PledgesController < ApplicationController
 
   def create
     @project = Project.find(params[:project_id])
-
+    @updates = @project.project_updates.all
     @pledge = @project.pledges.build
     @pledge.dollar_amount = params[:pledge][:dollar_amount]
     @pledge.user = current_user
@@ -11,9 +11,9 @@ class PledgesController < ApplicationController
     if @pledge.save
       redirect_to project_url(@project), notice: "You have successfully backed #{@project.title}!"
     else
-      flash.now[:alert] = @pledge.errors.full_messages.first
+      flash[:alert] = @pledge.errors.full_messages.first
       render 'projects/show'
     end
   end
-  
+
 end
