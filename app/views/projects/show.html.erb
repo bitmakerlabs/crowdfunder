@@ -1,4 +1,4 @@
-<h1><%= @project.title %></h1>
+<h1><%= @project.title %></h1> <span>
 
 <% if @project.image.present? %>
   <%= image_tag @project.image %>
@@ -14,7 +14,31 @@
   <%= f.submit "Pledge" %>
 <% end %>
 
-<h2>Rewards</h2>
+
+
+<% if @project.user == current_user %>
+  <h2>-------------pledges--------------------</h2>
+  <% if @pledges.empty? == false %>
+      <table>
+        <tr>
+          <th>User</th>
+          <th>Pledge Amount</th>
+          <th>Date/Time</th>
+        </tr>
+        <% @pledges.each do |pledge| %>
+          <tr>
+            <td><%= User.find(pledge.user_id).full_name %></td>
+            <td><%= pledge.dollar_amount%></td>
+            <td><%= pledge.created_at %></td>
+          </tr>
+        <% end %>
+      </table>
+    <% else %>
+        <p>You do not have any pledges so far.</p>
+    <% end %>
+<% end %>
+
+<h2>--------------Rewards-------------------</h2>
 <% @project.rewards.each do |reward| %>
   <p><%= number_to_currency(reward.dollar_amount) %></p>
   <p><%= reward.description %></p>
