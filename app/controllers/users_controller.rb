@@ -17,4 +17,12 @@ class UsersController < ApplicationController
       render 'new'
     end
   end
+
+  def profile
+    if current_user
+      @user = current_user
+    else
+      redirect_to login_url
+    end
+  end
 end
