@@ -1,19 +1,57 @@
-<%= link_to "New Project", new_project_path %>
 
-<% @projects.each do |project| %>
-  <article class="project">
-    <%= link_to project, class: 'project-link' do %>
-      <figure class="project-image">
-        <% if project.image %>
-          <%= image_tag project.image %>
-        <% else %>
-          <%= image_tag ActionController::Base.helpers.asset_path("default.jpg") %>
-        <% end %>
-      </figure>
-      <h1 class="project-title"><%= project.title %></h1>
-      <time class="project-days-left">
-        <%= icon('clock-o') %>
-        <%= "#{time_ago_in_words(project.end_date)} #{( project.end_date > Time.now.utc ) ? 'remaining' : 'past deadline'}" %></time>
+<div class="row">
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title text-capitalize"><strong>our benchmarks</strong></h3>
+      </div>
+      <div class="panel-body">
+        <p><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Total projects: <span class="label label-primary"><%= @allprojects.count %></span></p>
+        <p><span class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span> Being founded: <span class="label label-primary"><%= @projects_funded.count %></span></p>
+        <p><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> Total in fundings: <span class="label label-primary"><%= number_to_currency(@sucessful_projects_amounts.sum) %></span></p>
+      </div>
+    </div>
+  </div><!-- col-md-4 -->
+
+  <div class="col-md-8">
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <%= form_tag(@project, method: :get, class: "input-group") do %>
+          <%= text_field_tag :search, params[:search], placeholder: "Project name", class: 'form-control'%>
+        <span class="input-group-btn">
+          <%= submit_tag 'Search', name: nil, class: 'btn btn-default' %>
+          <% if params[:search]%>
+          <%= link_to 'Clear', root_url, class: 'btn btn-default', role: 'button' %>
+          <% end %>
+          <% end %>
+        </span>
+      </div>
+    </div>
+
+    <% if params[:search] && @projects.empty? %>
+    <div class="alert alert-info" role="alert">No Records found for "<%= params[:search] %>"</div>
     <% end %>
-  </article>
-<% end %>
+
+    <% @projects.each do |project| %>
+      <div class="thumbnail">
+        <%= link_to project, class: 'project-link' do %>
+          <% if project.image %>
+          <%= image_tag project.image %>
+          <% else %>
+          <%= image_tag ActionController::Base.helpers.asset_path("default.jpg") %>
+          <% end %>
+            <div class="caption">
+              <h2><strong><%= project.title %></strong></h2>
+              <p><%= project.description[0,123] %>...</p>
+              <p class="text-danger" >
+                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                <%= "#{time_ago_in_words(project.end_date)} #{( project.end_date > Time.now.utc ) ? 'remaining' : 'past deadline'}" %>
+              </p>
+            </div>
+          <% end %>
+      </div>
+    <% end %>
+
+  </div><!-- col-md-8 -->
+</div><!-- row -->

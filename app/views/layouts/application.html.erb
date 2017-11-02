@@ -12,28 +12,55 @@
   </head>
 
   <body>
-    <header class="site-header">
-      <h1 class="logo">Crowdfunder</h1>
+    <header>
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Crowdfunder</a>
+          </div>
 
-      <nav class="site-nav">
-        <% if current_user %>
-          <%= link_to "Logout", :logout, method: :delete %>
-        <% else %>
-          <%= link_to "Register", new_user_path %> |
-          <%= link_to "Login", :login %>
-        <% end %>
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li><%= link_to "Home", root_path %></li>
+              <% if current_user %>
+              <li><%= link_to "New Project", new_project_path %></li>
+              <li><%= link_to "Logout", :logout, method: :delete %></li>
+              <% else %>
+                <li><%= link_to "Login", :login %></li>
+                <li><%= link_to "Register", new_user_path %></li>
+              <% end %>
+            </ul>
+            <% if current_user %>
+            <ul class="nav navbar-nav navbar-right">
+              <li><%= link_to "#{current_user.first_name}'s Profile", profile_path %></li>
+            </ul>
+            <% end %>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
       </nav>
+      <% if flash[:notice].present?%>
+      <div class="alert alert-success" role="alert" ><%= flash[:notice] %></div>
+      <% elsif flash[:alert].present?%>
+      <div class="alert alert-danger" role="alert" ><%= flash[:alert] %></div>
+      <% end %>
     </header>
 
-    <% flash.each do |key, message| %>
-      <div class="flash-<%= key %>"><%= message %></div>
-    <% end %>
 
     <main>
-      <%= yield %>
+      <div class="container">
+        <%= yield %>
+      </div>
     </main>
 
-    <footer class="site-footer">
+    <footer>
       <small>A Bitmaker assignment</small>
     </footer>
   </body>

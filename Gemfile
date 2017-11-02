@@ -5,7 +5,8 @@ gem 'rails', '~> 5.1.1'
 gem 'puma', '~> 3.0'
 
 # Styles
-gem 'sass-rails'
+gem 'bootstrap-sass', '~> 3.3.7'
+gem 'sass-rails', '>= 3.2'
 gem 'font-awesome-sass', '~> 4.7.0'
 
 # JS
@@ -23,6 +24,7 @@ gem 'sorcery'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'pry-rails'
   gem 'faker'
 end
 

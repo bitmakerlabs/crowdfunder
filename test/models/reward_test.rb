@@ -2,6 +2,19 @@ require 'test_helper'
 
 class RewardTest < ActiveSupport::TestCase
 
+  test 'reward dollar amount must be positive number' do
+    project = new_project
+    project.save
+    reward = Reward.create(
+      dollar_amount: -350,
+      description: "A heartfelt thanks!",
+      project: project
+    )
+    
+    refute reward.valid?
+    refute reward.persisted?
+  end
+
   test 'A reward can be created' do
     project = new_project
     project.save

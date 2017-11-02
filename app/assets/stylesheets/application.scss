@@ -14,5 +14,8 @@
 @import 'forms';
 @import 'typography';
 
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
 // Module styles
 @import 'projects';

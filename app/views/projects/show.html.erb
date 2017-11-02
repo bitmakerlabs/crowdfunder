@@ -1,5 +1,13 @@
-<h1><%= @project.title %></h1>
-
+<h1>
+  <%= @project.title %>
+  <% if !@pledges_by_current_user.empty? &&  @project.user != current_user%>
+    <span style="font-size:12px;color:green;">You have already backed this project</span>
+  <% elsif @pledges_by_current_user.empty? &&  @project.user != current_user %>
+    <span style="font-size:12px;color:orange;">You have not backed this project yet</span>
+    <% else %>
+    <span style="font-size:12px;color:blue;">You are the owner of this project</span>
+  <% end %>
+</h1>
 <% if @project.image.present? %>
   <%= image_tag @project.image %>
 <% end %>
@@ -8,13 +16,37 @@
 <p>Goal: <%= number_to_currency(@project.goal) %></p>
 <p>Fundraising starts: <%= @project.start_date.strftime("%A %b %d %Y") %></p>
 <p>Deadline: <%= @project.end_date.strftime("%A %b %d %Y") %></p>
-
+<p>Money raised so far: $<%= @project.pledges.map { |pledge| pledge.dollar_amount }.sum %></p>
 <%= form_for [@project, Pledge.new] do |f| %>
   <%= f.number_field :dollar_amount, value: @project.rewards.minimum(:dollar_amount), step: 0.01 %>
   <%= f.submit "Pledge" %>
 <% end %>
 
-<h2>Rewards</h2>
+
+
+<% if @project.user == current_user %>
+  <h2>-------------pledges--------------------</h2>
+  <% if @pledges %>
+      <table>
+        <tr>
+          <th>User</th>
+          <th>Pledge Amount</th>
+          <th>Date/Time</th>
+        </tr>
+        <% @pledges.each do |pledge| %>
+          <tr>
+            <td><%= User.find(pledge.user_id).full_name %></td>
+            <td>$<%= pledge.dollar_amount%></td>
+            <td><%= pledge.created_at.strftime("%Y/%m/%d at %H:%M:%S") %></td>
+          </tr>
+        <% end %>
+      </table>
+    <% else %>
+        <p>You do not have any pledges so far.</p>
+    <% end %>
+<% end %>
+
+<h2>--------------Rewards-------------------</h2>
 <% @project.rewards.each do |reward| %>
   <p><%= number_to_currency(reward.dollar_amount) %></p>
   <p><%= reward.description %></p>
