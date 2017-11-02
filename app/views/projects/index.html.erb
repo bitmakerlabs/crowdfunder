@@ -1,5 +1,23 @@
 <%= link_to "New Project", new_project_path %>
 
+<h2>Number of projects started so far: <%= @allprojects.count %> projects</h2>
+
+<h2>Projects funded: <%= @projects_funded.count %> projects</h2>
+
+<h2>Total amount collected for successful projects: $<%= @sucessful_projects_amounts.sum %></h2>
+<div>
+  <%= form_tag(@project, method: :get, id: "search-form") do %>
+    <%= text_field_tag :search, params[:search], placeholder: "Project name" %>
+    <%= submit_tag 'Search', name: nil, class: 'btn' %>
+    <% if params[:search]%>
+      <%= link_to 'Clear', root_url, class: 'btn' %>
+    <% end %>
+  <% end %>
+
+  <% if params[:search] && @projects.empty? %>
+    Sorry, no results for <%= params[:search] %>
+  <% end %>
+</div>
 <% @projects.each do |project| %>
   <article class="project">
     <%= link_to project, class: 'project-link' do %>

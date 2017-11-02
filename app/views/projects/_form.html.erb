@@ -1,4 +1,9 @@
 <%= form_for(@project, html: {multipart: true}) do |f| %>
+
+<% @project.errors.full_messages.each do |error| %>
+  <%= content_tag :div, error , class: "error" %>
+<% end %>
+
   <div>
     <%= f.label :title %>
     <%= f.text_field :title %>
