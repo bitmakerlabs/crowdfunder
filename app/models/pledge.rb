@@ -4,4 +4,15 @@ class Pledge < ApplicationRecord
 
   validates :dollar_amount, presence: true
   validates :user, presence: true
+  validates :dollar_amount, numericality: {greater_than: 0}
+
+  validate :owner_not_pledge_own_project
+
+  private
+
+  def owner_not_pledge_own_project
+    if project.user == user
+      errors.add( :user_id, "Owner should not be able to pledge his own project")
+    end
+  end
 end

@@ -1,0 +1,24 @@
+<h1>Profile Page for User</h1>
+
+<h2>Welcome <%= @user.first_name %></h2>
+<p>These are all the projects you've backed up</p>
+<ul>
+  <% @user.pledges.each do |pledge| %>
+  <li>
+    <%= pledge.project.title%> |
+    You contributed: $<%= pledge.dollar_amount %> |
+    on <%= pledge.created_at.strftime("%B %d, %Y") %>
+  </li>
+  <% end %>
+</ul>
+<hr>
+<p>You have pledged a total amount of $<%= @user.pledges.map { |pledge| pledge.dollar_amount }.sum %></p>
+<hr>
+<p>These are the projects you own:</p>
+  <ul>
+    <% @user.projects.each do |project| %>
+    <li>
+      <%= project.title %>
+    </li>
+    <% end %>
+  </ul>

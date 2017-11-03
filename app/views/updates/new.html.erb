@@ -1,0 +1,10 @@
+<h1>Add an update about project <%= @project.title %></h1>
+
+<%= form_for [@project, @update] do |f| %>
+  <div>
+    <%= f.label :note %>
+    <%= f.text_area :note %>
+  </div>
+
+  <%= f.submit %>
+<% end %>

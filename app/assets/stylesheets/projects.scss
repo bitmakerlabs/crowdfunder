@@ -2,27 +2,51 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.project {
-  text-align: center;
-  margin: 1rem 0;
-  padding: 1rem 0;
-  background-color: #f9f9f9;
-}
+// .project {
+//   text-align: center;
+//   margin: 1rem 0;
+//   padding: 1rem 0;
+//   background-color: #f9f9f9;
+// }
+//
+// .project-image > img {
+//   margin: auto;
+// }
+//
+// .project-link {
+//   display: block;
+//   text-decoration: none;
+//   color: cadetblue;
+// }
+//
+// .project-title {
+//   margin-bottom: 0;
+// }
+//
+// .project-days-left {
+//   font-size: 0.75em;
+// }
 
-.project-image > img {
-  margin: auto;
-}
 
-.project-link {
-  display: block;
+.thumbnail {
+  padding: 15px;
+  background-color: white;
+}
+h2 {
+  color: $brand-primary;
+}
+.thumbnail a {
   text-decoration: none;
-  color: cadetblue;
 }
 
-.project-title {
-  margin-bottom: 0;
-}
+ .navbar-default {
+  background-color: #837DB9;
+  border-radius: 0;
+ }
 
-.project-days-left {
-  font-size: 0.75em;
+.navbar-default .navbar-nav > li > a {
+  color: white;
+}
+.navbar-default .navbar-brand{
+  color: white;
 }

@@ -1,29 +1,150 @@
-<h1><%= @project.title %></h1>
+<h1>
+  <%= @project.title %>
 
+  <% if is_backer? %>
+    <span style="font-size:12px;color:green;">You have already backed this project</span>
+  <% end %>
+
+  <% if !is_backer? && @projectOwner != current_user %>
+    <span style="font-size:12px;color:orange;">You have not backed this project yet</span>
+  <% end %>
+
+  <% if @projectOwner == current_user %>
+    <span style="font-size:12px;color:blue;">You are the owner of this project</span>
+  <% end %>
+
+</h1>
+
+
+<!-- project image -->
 <% if @project.image.present? %>
   <%= image_tag @project.image %>
 <% end %>
 
+<% # project info section accessible to everyone %>
 <p><%= @project.description %></p>
 <p>Goal: <%= number_to_currency(@project.goal) %></p>
 <p>Fundraising starts: <%= @project.start_date.strftime("%A %b %d %Y") %></p>
 <p>Deadline: <%= @project.end_date.strftime("%A %b %d %Y") %></p>
+<p>Money raised so far: $<%= @project.pledges.map { |pledge| pledge.dollar_amount }.sum %></p>
 
-<%= form_for [@project, Pledge.new] do |f| %>
-  <%= f.number_field :dollar_amount, value: @project.rewards.minimum(:dollar_amount), step: 0.01 %>
-  <%= f.submit "Pledge" %>
+<% #pledge form not accessible to project owner %>
+<% if @projectOwner != current_user %>
+  <%= form_for [@project, Pledge.new] do |f| %>
+    <%= f.number_field :dollar_amount, value: @project.rewards.minimum(:dollar_amount), step: 0.01 %>
+    <%= f.submit "Pledge" %>
+  <% end %>
 <% end %>
 
-<h2>Rewards</h2>
-<% @project.rewards.each do |reward| %>
-  <p><%= number_to_currency(reward.dollar_amount) %></p>
-  <p><%= reward.description %></p>
+<% #updates can only be seen by backer and project owner %>
+<% if is_backer? || @projectOwner == current_user%>
+<h2>-------------Updates--------------------</h2>
 
-  <p>
-    <small>
-      <%= link_to "Remove reward", project_reward_path(@project, reward), method: 'delete' %>
-    </small>
-  </p>
+  <% if @updates.empty? %>
+    <p>There are no updates at the moment</p>
+  <% else %>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Date/Time</th>
+        <th>Note</th>
+      </tr>
+      <% @updates.each do |update| %>
+        <tr>
+          <td><%= @projectOwner.full_name %></td>
+          <td><%= update.created_at.strftime("%Y/%m/%d at %H:%M:%S") %></td>
+          <td><%= update.note %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+
+    <% #add new update button accessible only to project owner %>
+    <% if @projectOwner == current_user %>
+      <%= link_to "Add new update", new_project_update_path(@project) %>
+    <% end %>
 <% end %>
 
-<%= link_to "Add new reward", new_project_reward_path(@project) %>
+<% # pledges can be seen only by project owner %>
+<% if @projectOwner == current_user %>
+  <h2>-------------Pledges--------------------</h2>
+  <% if !@pledges.empty? %>
+      <table>
+        <tr>
+          <th>User</th>
+          <th>Pledge Amount</th>
+          <th>Date/Time</th>
+        </tr>
+        <% @pledges.each do |pledge| %>
+          <tr>
+            <td><%= User.find(pledge.user_id).full_name %></td>
+            <td>$<%= pledge.dollar_amount%></td>
+            <td><%= pledge.created_at.strftime("%Y/%m/%d at %H:%M:%S") %></td>
+          </tr>
+        <% end %>
+      </table>
+    <% else %>
+        <p>You do not have any pledges so far.</p>
+    <% end %>
+<% end %>
+
+<% #rewards can be seen by all %>
+<h2>--------------Rewards-------------------</h2>
+<% if !@rewards.empty? %>
+
+  <% @rewards.each do |reward| %>
+    <p><%= number_to_currency(reward.dollar_amount) %></p>
+    <p><%= reward.description %></p>
+
+    <% #remove reward button accessible only to project owner %>
+    <% if @projectOwner == current_user %>
+      <p>
+        <small>
+          <%= link_to "Remove reward", project_reward_path(@project, reward), method: 'delete' %>
+        </small>
+      </p>
+      <% end %>
+    <% end %>
+
+    <% #Add reward button acessisble only to the project owner  %>
+      <% if @projectOwner == current_user %>
+        <%= link_to "Add new reward", new_project_reward_path(@project) %>
+        <br>
+    <% end %>
+
+<% else %>
+    <p>There are no rewards at the moment.</p>
+<% end %>
+
+<% #backer comments section accessible only to backers and project owner %>
+<% if is_backer? || @projectOwner == current_user%>
+  <h2>-------------Comments--------------------</h2>
+
+  <% if @comments.empty? %>
+    <p>There are no comments at the moment</p>
+  <% else %>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Date/Time</th>
+        <th>Comment</th>
+      </tr>
+      <% @comments.each do |comment| %>
+        <tr>
+          <td><%= comment.user.full_name %></td>
+          <td><%= comment.created_at.strftime("%Y/%m/%d at %H:%M:%S") %></td>
+          <td><%= comment.comment %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+
+<% end %>
+
+
+
+
+<% #Add comment button accessible only to backers %>
+<% if is_backer? || @projectOwner == current_user%>
+  <%= link_to "Add Comment", new_project_comment_path(@project) %>
+<% end %>

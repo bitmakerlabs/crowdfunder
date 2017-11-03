@@ -2,7 +2,12 @@ class RewardsController < ApplicationController
   before_action :load_project
 
   def new
-    @reward = Reward.new
+
+    if logged_in? && current_user == @project.user
+      @reward = Reward.new
+    else
+      render 'layouts/denied'
+    end
   end
 
   def create
