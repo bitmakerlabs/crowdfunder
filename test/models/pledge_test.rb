@@ -25,7 +25,7 @@ class PledgeTest < ActiveSupport::TestCase
     assert pledge.invalid?, 'Owner should not be able to pledge towards own project'
   end
 
-#================ New Test V ================
+#================ Validation 1. ================
   test 'dollar_amount_is_required' do
     #arrange
     jack = User.new(first_name: "Jack", last_name: "Sparrow", email: "jackyboy@ghost.co")
