@@ -2,8 +2,7 @@ class Pledge < ApplicationRecord
   belongs_to :user
   belongs_to :project
 
-  validates :dollar_amount, presence: true
-  validates :user, presence: true
+  validates :dollar_amount, :user, presence: true
   validate :pledge_userid_cannot_be_project_userid
 
   def pledge_userid_cannot_be_project_userid
@@ -11,7 +10,12 @@ class Pledge < ApplicationRecord
  	if project_users != nil
   		if self.project_id == project_users.id && self.user_id == project_users.user_id
   			errors.add(:user_id, "can't pledge your own project.")
-  		end 
-	end
+  		end
+	   end
   end
+
+
+
+
+
 end
