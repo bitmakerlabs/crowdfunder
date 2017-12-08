@@ -2,6 +2,16 @@ require_relative '../test_helper'
 
 class PledgeTest < ActiveSupport::TestCase
 
+#================ Validation 1. ================
+  test 'dollar_amount_is_required' do
+    #arrange
+    jack = User.new(first_name: "Jack", last_name: "Sparrow", email: "jackyboy@ghost.co")
+    pledger = Pledge.new(user: jack)
+
+    #assert
+    assert pledger.invalid?
+  end
+
   test 'A pledge can be created' do
     pledge = Pledge.create(
       dollar_amount: 99.00,
@@ -24,17 +34,6 @@ class PledgeTest < ActiveSupport::TestCase
     pledge.save
     assert pledge.invalid?, 'Owner should not be able to pledge towards own project'
   end
-
-#================ Validation 1. ================
-  test 'dollar_amount_is_required' do
-    #arrange
-    jack = User.new(first_name: "Jack", last_name: "Sparrow", email: "jackyboy@ghost.co")
-    pledger = Pledge.new(user: jack)
-
-    #assert
-    assert pledger.invalid?
-  end
-
 
   def new_project
     Project.new(
