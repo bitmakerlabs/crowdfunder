@@ -1,6 +1,14 @@
 class Reward < ActiveRecord::Base
-  validates :description, presence: true
-  validates :dollar_amount, presence: true
-
   belongs_to :project
+
+  validates :description, :dollar_amount, presence: true
+
+  #============= Validation 5.  ===============
+  validates :dollar_amount, numericality: { greater_than: 0 }
+
+
+
+
+
+
 end
