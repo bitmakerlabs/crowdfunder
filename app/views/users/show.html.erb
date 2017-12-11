@@ -5,7 +5,11 @@
 		<% @pledges.each do |pledge|%>
 			<h3><%= pledge.project.title%></h3>
 			<p><%= pledge.project.description%></p>
-			<p>You pledged: $<%= pledge.dollar_amount%></p>
+			<% if @user.id == current_user.id%>
+				<p>You pledged: $<%= pledge.dollar_amount%></p>
+			<% else %>
+				<p>They pledged: $<%= pledge.dollar_amount%></p>
+			<% end %>
 		<% end %>
 	</div>
 	<div>

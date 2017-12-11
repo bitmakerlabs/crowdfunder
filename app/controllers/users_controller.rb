@@ -4,9 +4,9 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = current_user
-    @projects = Project.where(user_id: current_user.id)
-    @pledges = Pledge.where(user_id: current_user.id)
+    @user = User.find_by(id: params[:id])
+    @projects = Project.where(user_id: params[:id])
+    @pledges = Pledge.where(user_id: params[:id])
 
     @total_pledged = 0
     @pledges.each do |pledge|
