@@ -1,5 +1,17 @@
 <%= link_to "New Project", new_project_path %>
 
+<div>
+  <div>
+    <h2><%= @projects.count%> projects started.</h2>    
+  </div>
+  <div>
+    <h2><%= @pledges.distinct.count('project_id')%> are being funded.</h2>
+  </div>
+  <div>
+    <h2><%= @finished_backing%> have completed funding.</h2>
+  </div>
+</div>
+
 <% @projects.each do |project| %>
   <article class="project">
     <%= link_to project, class: 'project-link' do %>
