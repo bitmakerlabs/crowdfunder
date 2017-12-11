@@ -1,0 +1,21 @@
+<div>
+	<h1><%= @user.first_name%></h1>
+	<div>
+		<h2>Backed</h2>
+		<% @pledges.each do |pledge|%>
+			<h3><%= pledge.project.title%></h3>
+			<p><%= pledge.project.description%></p>
+			<p>You pledged: $<%= pledge.dollar_amount%></p>
+		<% end %>
+	</div>
+	<div>
+		<h2>Owned</h2>
+		<%@projects.each do |project|%>
+			<h3><%= project.title%></h3>
+			<p><%= project.description %></p>
+		<% end %>
+	</div>
+	<div>
+		<h2>Total Pledged: $<%= @total_pledged %></h2>
+	</div>
+</div>

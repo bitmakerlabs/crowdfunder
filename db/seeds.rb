@@ -3,22 +3,6 @@ Reward.destroy_all
 User.destroy_all
 Project.destroy_all
 
-10.times do
-  project = Project.create!(
-              title: Faker::App.name,
-              description: Faker::Lorem.paragraph,
-              goal: rand(100000),
-              start_date: Time.now.utc - rand(60).days,
-              end_date: Time.now.utc + rand(10).days
-            )
-
-  5.times do
-    project.rewards.create!(
-      description: Faker::Superhero.power,
-      dollar_amount: rand(100),
-    )
-  end
-end
 
 5.times do
   User.create!(
@@ -28,6 +12,24 @@ end
     password: 'password',
     password_confirmation: 'password'
   )
+end
+
+10.times do |x|
+  project = Project.create!(
+              title: Faker::App.name,
+              description: Faker::Lorem.paragraph,
+              goal: rand(100000),
+              start_date: Time.now.utc - rand(60).days,
+              end_date: Time.now.utc + rand(10).days,
+              user_id: x + 1
+            )
+
+  5.times do
+    project.rewards.create!(
+      description: Faker::Superhero.power,
+      dollar_amount: rand(100),
+    )
+  end
 end
 
 20.times do

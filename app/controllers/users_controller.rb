@@ -3,6 +3,17 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def show
+    @user = current_user
+    @projects = Project.where(user_id: current_user.id)
+    @pledges = Pledge.where(user_id: current_user.id)
+
+    @total_pledged = 0
+    @pledges.each do |pledge|
+      @total_pledged += pledge.dollar_amount
+    end
+  end
+
   def create
     @user = User.new
     @user.first_name = params[:user][:first_name]
