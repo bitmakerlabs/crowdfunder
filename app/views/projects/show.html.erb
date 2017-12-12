@@ -4,8 +4,9 @@
 <% if @project.image.present? %>
   <%= image_tag @project.image %>
 <% end %>
-
 <p><%= @project.description %></p>
+
+<!-- Update section -->
   <h2>Updates</h2>
   <% @project.updates.reverse.each do |update| %>
     <p><%= update.description%> 
@@ -17,6 +18,22 @@
     <p><%= f.text_area :description%></p>
     <p><%= f.submit "Update" %></p>
   <% end %>
+<% end %>
+  
+<!-- Comments -->
+<h2>Comments</h2>
+  <% @project.comments.reverse.each do |comment| %>
+    <p><%= comment.text%> 
+      <small><%= comment.created_at.strftime("%A %b %d %Y")  %></small></p>
+  <% end %>
+
+<% if @pledge_status %>
+  <%= form_for [@project, Comment.new] do |f| %>
+    <p><%= f.text_area :text%></p>
+    <p><%= f.submit "Submit" %></p>
+  <% end %>
+<% else %>
+  <p>You need to pledge for this project to comment!</p>
 <% end %>
 
 <!-- Pledge information -->
@@ -39,7 +56,7 @@
   <% @pledges.each do |pledger|%>
     <p><%= link_to pledger.user.first_name, user_path(pledger.id)%></p>
   <% end %>
-<% end %>
+<%end %>
 
 <h2>Rewards</h2>
 <% @project.rewards.each do |reward| %>
