@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+	has_many :comments
   has_secure_password
   validates :password, length: { minimum: 8 }, on: :create
   validates :password, confirmation: true, on: :create

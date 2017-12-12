@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :pledges, only: [:create]
     resources :rewards, except: [:index]
     resources :updates, only: [:create, :edit, :update]
+    resources :comments, only: [:create]
   end
   resources :users, only: [:new, :create, :show]
   resources :user_sessions, only: [:create]
