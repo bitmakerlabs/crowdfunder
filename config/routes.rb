@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :projects, only: [:index, :new, :create, :show] do
     resources :pledges, only: [:create]
     resources :rewards, except: [:index]
-    resources :updates, except: [:index]
+    resources :updates, only: [:create, :edit, :update]
   end
   resources :users, only: [:new, :create, :show]
   resources :user_sessions, only: [:create]

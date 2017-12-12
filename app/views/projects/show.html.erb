@@ -6,15 +6,28 @@
 <% end %>
 
 <p><%= @project.description %></p>
+  <h2>Updates</h2>
+  <% @project.updates.reverse.each do |update| %>
+    <p><%= update.description%> 
+      <small><%= update.created_at.strftime("%A %b %d %Y")  %></small></p>
+  <% end %>
+
+<% if !@pledge_status %>
+  <%= form_for [@project, Update.new] do |f| %>
+    <p><%= f.text_area :description%></p>
+    <p><%= f.submit "Update" %></p>
+  <% end %>
+<% end %>
+
+<!-- Pledge information -->
 <p>Total Pledged: $<%= @total_pledged%></p>
 <p>Goal: <%= number_to_currency(@project.goal) %></p>
 <p>Fundraising starts: <%= @project.start_date.strftime("%A %b %d %Y") %></p>
 
+<p>Deadline: <%= @project.end_date.strftime("%A %b %d %Y") %></p>
 <% if @pledge_status %>
   <p>You have already backed this project.</p>
 <% end %>
-
-<p>Deadline: <%= @project.end_date.strftime("%A %b %d %Y") %></p>
 
 <%= form_for [@project, Pledge.new] do |f| %>
   <%= f.number_field :dollar_amount, value: @project.rewards.minimum(:dollar_amount), step: 0.01 %>
@@ -34,7 +47,7 @@
   <p><%= reward.description %></p>
   <p># available: <%= reward.amount%> | claimed: <%= reward.claimed %></p>
   <p>
-    <% if @pledge_status %>
+    <% if !@pledge_status %>
     <small>
       <%= link_to "Edit", edit_project_reward_path(@project, reward)%> | <%= link_to "Remove reward", project_reward_path(@project, reward), method: 'delete' %>
     </small>
