@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170914203324) do
+ActiveRecord::Schema.define(version: 20171212221232) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "project_id"
+    t.string "text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "pledges", id: :serial, force: :cascade do |t|
     t.integer "user_id"
@@ -43,6 +51,17 @@ ActiveRecord::Schema.define(version: 20170914203324) do
     t.float "dollar_amount"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer "amount", default: 1
+    t.integer "claimed", default: 0
+  end
+
+  create_table "updates", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.datetime "entry_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "project_id"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|

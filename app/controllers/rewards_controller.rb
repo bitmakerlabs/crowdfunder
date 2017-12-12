@@ -9,11 +9,28 @@ class RewardsController < ApplicationController
     @reward = @project.rewards.build
     @reward.dollar_amount = params[:reward][:dollar_amount]
     @reward.description = params[:reward][:description]
+    @reward.amount = params[:reward][:amount]
 
     if @reward.save
       redirect_to project_url(@project), notice: 'Reward created'
     else
       render :new
+    end
+  end
+  def edit
+    @reward = Reward.find(params[:id])
+  end
+
+  def update
+    @reward = Reward.find(params[:id])
+    @reward.dollar_amount = params[:reward][:dollar_amount]
+    @reward.description = params[:reward][:description]
+    @reward.amount = params[:reward][:amount]
+
+    if @reward.save
+      redirect_to project_url(@project), notice: 'Reward Updated'
+    else
+      render :edit
     end
   end
 
