@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   resources :projects, only: [:index, :new, :create, :show] do
     resources :pledges, only: [:create]
-    resources :rewards, only: [:new, :create, :destroy]
+    resources :rewards
   end
   resources :users, only: [:new, :create, :show]
   resources :user_sessions, only: [:create]
