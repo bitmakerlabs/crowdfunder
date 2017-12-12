@@ -1,21 +1,28 @@
 class ProjectsController < ApplicationController
   before_action :require_login, only: [:new, :create]
 
+
+
+  #============= Does Normal Index if no Search Bar  ===============
   def index
-    @projects = Project.all
-    @projects = @projects.order(:end_date)
+    if params[:search]
+      @projects = Project.search(params[:search]).order("created_at DESC")
+    else
+      @projects = Project.all
+      @projects = @projects.order(:end_date)
 
-    @pledges = Pledge.all
+      @pledges = Pledge.all
 
-    @finished_backing = 0
+      @finished_backing = 0
 
-    @projects.each_with_index do |project, i|
-      total_pledged = 0
-      pledges_for_project = Pledge.where(project_id: i)
-      pledges_for_project.each do |pledge|
-        total_pledged += pledge.dollar_amount
-        if total_pledged == project.goal
-          @finished_backing += 1
+      @projects.each_with_index do |project, i|
+        total_pledged = 0
+        pledges_for_project = Pledge.where(project_id: i)
+        pledges_for_project.each do |pledge|
+          total_pledged += pledge.dollar_amount
+          if total_pledged == project.goal
+            @finished_backing += 1
+          end
         end
       end
     end

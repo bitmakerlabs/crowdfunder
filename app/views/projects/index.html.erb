@@ -2,10 +2,14 @@
 
 <div>
   <div>
-    <h2><%= @projects.count%> projects started.</h2>    
+    <h2><%= @projects.count%> projects started.</h2>
   </div>
   <div>
+<!-- ======= Below if required or search will fail ======= -->
+    <% if !params[:search] %>
     <h2><%= @pledges.distinct.count('project_id')%> are being funded.</h2>
+    <% end %>
+
   </div>
   <div>
     <h2><%= @finished_backing%> have completed funding.</h2>

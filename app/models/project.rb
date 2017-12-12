@@ -27,4 +27,9 @@ class Project < ActiveRecord::Base
     end
   end
 
+  #============= Search Bar  ===============
+  def self.search(search)
+    where("title LIKE ? OR description LIKE ? ", "%#{search}%", "%#{search}%")
+  end
+
 end

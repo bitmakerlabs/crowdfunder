@@ -11,6 +11,18 @@
     <%= csrf_meta_tags %>
   </head>
 
+<header>
+
+  <!-- ====== Search Bar ======  -->
+  <%= form_tag(projects_path, :method => "get", id: "search-form") do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search Projects" %>
+  <%= submit_tag "Search", :title => nil %>
+  <% end %>
+
+  </header>
+
+
+
   <body>
     <header class="site-header">
       <h1 class="logo">Crowdfunder</h1>
