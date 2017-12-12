@@ -1,17 +1,29 @@
 <h1><%= @project.title %></h1>
+<h3>By: <%=link_to @project.user.first_name, user_path(@project.user_id) %></h3>
 
 <% if @project.image.present? %>
   <%= image_tag @project.image %>
 <% end %>
 
 <p><%= @project.description %></p>
+<p>Total Pledged: $<%= @total_pledged%></p>
 <p>Goal: <%= number_to_currency(@project.goal) %></p>
 <p>Fundraising starts: <%= @project.start_date.strftime("%A %b %d %Y") %></p>
+<% if @pledge_status %>
+  <p>You have already backed this project.</p>
+<% end %>
 <p>Deadline: <%= @project.end_date.strftime("%A %b %d %Y") %></p>
 
 <%= form_for [@project, Pledge.new] do |f| %>
   <%= f.number_field :dollar_amount, value: @project.rewards.minimum(:dollar_amount), step: 0.01 %>
   <%= f.submit "Pledge" %>
+<% end %>
+
+<% if @pledge_status%>
+  <h2>Who has pledged your project?</h2>
+  <% @pledges.each do |pledger|%>
+    <p><%= link_to pledger.user.first_name, user_path(pledger.id)%></p>
+  <% end %>
 <% end %>
 
 <h2>Rewards</h2>

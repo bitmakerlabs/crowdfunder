@@ -1,6 +1,14 @@
 require 'test_helper'
 
+
 class RewardTest < ActiveSupport::TestCase
+
+  #================ Validation 5. ================
+  test 'dollar_amount_must_be_positive' do
+    pony = Reward.new(description: "It's a pony", dollar_amount: -5.0)
+    assert pony.invalid?
+  end
+
 
   test 'A reward can be created' do
     project = new_project
