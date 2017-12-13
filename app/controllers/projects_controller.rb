@@ -6,7 +6,9 @@ class ProjectsController < ApplicationController
   #============= Does Normal Index if no Search Bar  ===============
   def index
     if params[:search]
-      @projects = Project.search(params[:search]).order("created_at DESC")
+      @projects = Project.search(params[:search])
+      @projects += Category.search_projects(params[:search])
+      @projects = @projects.sort_by(&:created_at)
     else
       @projects = Project.all
       @projects = @projects.order(:end_date)
