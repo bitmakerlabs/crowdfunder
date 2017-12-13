@@ -4,7 +4,7 @@ User.destroy_all
 Project.destroy_all
 
 User.create(first_name: "Gus", last_name: "Jaker", email: "gusjaker@gus.gus", password: "12345678", password_confirmation: "12345678")
-category_array = ["Techno", "Puppies", "Kittens", "Music", "Fungi", "Cereal", "Eyepatches", "Magic", "Lunchtime", ]
+category_array = ["Techno", "Puppies", "Fungi", "Cereal", "Eyepatches", "Magic" ]
 
 category_array.each do |categor|
   Category.create!(name: categor)
