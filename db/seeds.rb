@@ -29,16 +29,15 @@ end
   5.times do
     project.rewards.create!(
       description: Faker::Superhero.power,
-      dollar_amount: rand(100),
+      dollar_amount: 1 + rand(100),
     )
   end
 end
 
 20.times do
   project = Project.all.sample
-
   Pledge.create!(
-    user: User.all.sample,
+    user: (User.all - [project.user]).sample,
     project: project,
     dollar_amount: project.rewards.sample.dollar_amount + rand(10) + 1
   )

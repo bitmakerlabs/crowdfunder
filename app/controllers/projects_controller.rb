@@ -36,10 +36,9 @@ class ProjectsController < ApplicationController
 
     @pledges.each do |pledge|
       @total_pledged += pledge.dollar_amount
-      if current_user.id == pledge.user_id
+      if current_user && current_user.id == pledge.user_id
         @pledge_status = true
       end
-
     end
   end
 
