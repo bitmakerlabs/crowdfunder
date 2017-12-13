@@ -2,7 +2,10 @@
 
 <div>
   <div>
+<!-- ======= Below if required or search will fail ======= -->
+    <% if !params[:search] %>
     <h2><%= @projects.count%> projects started.</h2>
+    <% end %>
   </div>
   <div>
 <!-- ======= Below if required or search will fail ======= -->
@@ -30,6 +33,7 @@
       <time class="project-days-left">
         <%= icon('clock-o') %>
         <%= "#{time_ago_in_words(project.end_date)} #{( project.end_date > Time.now.utc ) ? 'remaining' : 'past deadline'}" %></time>
+       <h2>Category: <%= project.category.name %></h2>
     <% end %>
   </article>
 <% end %>

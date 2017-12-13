@@ -30,7 +30,7 @@ end
               start_date: Time.now.utc,
               end_date: Time.now.utc + rand(10).days,
               user_id: user.id,
-              category_id: category
+              category_id: category.id
             )
 
   5.times do
