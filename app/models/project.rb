@@ -1,6 +1,8 @@
 class Project < ActiveRecord::Base
   has_many :rewards
   has_many :pledges
+  has_many :updates
+  has_many :comments
   has_many :users, through: :pledges # backers
   belongs_to :user # project owner
 
