@@ -6,9 +6,4 @@ class Reward < ActiveRecord::Base
   #============= Validation 5.  ===============
   validates :dollar_amount, numericality: { greater_than: 0 }
 
-
-
-
-
-
 end

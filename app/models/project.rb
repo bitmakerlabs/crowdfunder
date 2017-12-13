@@ -10,8 +10,8 @@ class Project < ActiveRecord::Base
 
 
   #============= Validation 2, 3, 4  ===============
-  # validate :start_date_cannot_be_in_the_past
-  # validate :end_date_cannot_be_after_start_date
+   validate :start_date_cannot_be_in_the_past
+  validate :end_date_cannot_be_after_start_date
   validates :goal, numericality: { only_integer: true, greater_than: 0 }
 
 
