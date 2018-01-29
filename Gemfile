@@ -8,13 +8,16 @@ gem 'puma', '~> 3.0'
 gem 'sass-rails'
 gem 'font-awesome-sass', '~> 4.7.0'
 
+# Debug
+gem 'awesome_print'
+gem 'pry-rails'
 # JS
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.5'
 
 # Database
-gem 'pg'
+  gem 'pg', '=0.21'
 
 # Authentication and authorization
 gem 'bcrypt', '~> 3.1.7'
