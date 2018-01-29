@@ -12,6 +12,7 @@ class ProjectTest < ActiveSupport::TestCase
     assert project.valid?
     assert project.persisted?
     assert project.user
+    # .
   end
 
   test 'project is invalid without owner' do
