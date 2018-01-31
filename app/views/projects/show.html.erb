@@ -4,8 +4,14 @@
   <%= image_tag @project.image %>
 <% end %>
 
+<% if @project.already_pledged?(current_user) %>
+  You have already backed this project!!
+<% end %>
+
 <p><%= @project.description %></p>
+<p>Created by: <%= link_to @project.user.first_name, user_path(@project.user)%></p>
 <p>Goal: <%= number_to_currency(@project.goal) %></p>
+<p>Total Pledged: <%= number_to_currency(@project.pledges.pluck(:dollar_amount).sum) %></p>
 <p>Fundraising starts: <%= @project.start_date.strftime("%A %b %d %Y") %></p>
 <p>Deadline: <%= @project.end_date.strftime("%A %b %d %Y") %></p>
 
@@ -13,6 +19,11 @@
   <%= f.number_field :dollar_amount, value: @project.rewards.minimum(:dollar_amount), step: 0.01 %>
   <%= f.submit "Pledge" %>
 <% end %>
+
+<time class="project-days-left">
+  <%= icon('clock-o') %>
+  <%= "#{time_ago_in_words(@project.end_date)} #{( @project.end_date > Time.now.utc ) ? 'remaining' : 'past deadline'}" %>
+</time>
 
 <h2>Rewards</h2>
 <% @project.rewards.each do |reward| %>
