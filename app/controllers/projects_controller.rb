@@ -38,7 +38,9 @@ class ProjectsController < ApplicationController
       @project.update(image: "http://americanconstruction.net/wp-content/uploads/2015/10/upload-empty.png")
     end
     if @project.save
+      flash[:alert] = ["You have successfully made a project!"]
       redirect_to projects_url
+
     else
       flash.now[:alert] = @project.errors.full_messages
       render :new
