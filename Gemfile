@@ -31,9 +31,11 @@ group :development do
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'awesome_print'
 end
 
 group :test do
+  gem 'factory_girl_rails'
   gem 'minitest-rails'
   gem 'minitest-reporters'
   gem 'rails-controller-testing'

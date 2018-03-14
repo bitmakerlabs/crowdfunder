@@ -17,4 +17,11 @@ class UsersController < ApplicationController
       render 'new'
     end
   end
+
+  def show
+    @user = User.find(session[:user_id])
+    @backed_projects = @user.backed_projects
+    @total_amount = @user.pledged_amount
+    @owned_projects = @user.owned_projects
+  end
 end

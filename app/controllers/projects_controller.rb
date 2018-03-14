@@ -3,11 +3,21 @@ class ProjectsController < ApplicationController
 
   def index
     @projects = Project.all
-    @projects = @projects.order(:end_date)
+
+    @projects = Project.search(params[:term])
   end
 
   def show
     @project = Project.find(params[:id])
+    if current_user
+      @pledged_by_user = current_user.pledged_for(@project)
+    end
+    @total_pledged_for_project = @project.pledged_amount
+
+    check_if_backed
+    @backers = @project.backers
+
+    @number_of_rewards = @project.rewards.count
   end
 
   def new
@@ -23,6 +33,7 @@ class ProjectsController < ApplicationController
     @project.start_date = params[:project][:start_date]
     @project.end_date = params[:project][:end_date]
     @project.image = params[:project][:image]
+    @project.user_id = current_user.id
 
     if @project.save
       redirect_to projects_url
@@ -31,4 +42,12 @@ class ProjectsController < ApplicationController
     end
    end
 
+end
+
+def check_if_backed
+  if @project.backers.include?(current_user)
+    flash.now[:notice] = "You have already backed that project."
+  else
+    flash.now[:notice] = "You have not backed that project yet."
+  end
 end
