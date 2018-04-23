@@ -16,3 +16,88 @@
 
 // Module styles
 @import 'projects';
+
+h3 {
+  text-align: center;
+  margin: 40px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.project-show {
+  text-align: center;
+}
+.flash, .errors {
+  text-align: center;
+  background-color: lighten(cadetblue, 40%);
+  margin-bottom: 5px;
+  color: crimson;
+  padding: 5px 0px;
+}
+.form {
+  border: 3px cadetblue solid;
+  border-radius: 3px;
+  margin-left: 42%;
+  padding: 25px;
+  display: inline-block;
+}
+.form:hover{
+  background-color: lighten(cadetblue, 40%);
+}
+.form-project {
+  border: 3px cadetblue solid;
+  border-radius: 3px;
+  margin-left: 39%;
+  padding: 25px;
+  display: inline-block;
+}
+.form-project:hover{
+  background-color: lighten(cadetblue, 40%);
+}
+.project-details {
+  border: 3px cadetblue solid;
+  border-radius: 3px;
+  width: 50%;
+  margin: auto;
+  padding: 10px;
+}
+.product-details:hover{
+  background-color: lighten(cadetblue, 40%);
+}
+.reward-details {
+  border: 3px cadetblue solid;
+  border-radius: 3px;
+  width: 50%;
+  margin: auto;
+  padding: 10px;
+}
+.reward-details:hover{
+  background-color: lighten(cadetblue, 40%);
+}
+.comments {
+  border: 3px cadetblue solid;
+  border-radius: 3px;
+  width: 50%;
+  margin: 10px auto;
+  padding: 10px;
+  text-align: center;
+}
+.comments:hover{
+  background-color: lighten(cadetblue, 40%);
+}
+.user {
+  border: 3px cadetblue solid;
+  border-radius: 3px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 30%;
+  padding: 25px;
+  display: inline-block;
+  text-align: center;
+}
+.user:hover{
+  background-color: lighten(cadetblue, 40%);
+}

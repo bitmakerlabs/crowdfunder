@@ -1,15 +1,21 @@
 Rails.application.routes.draw do
-  root "projects#index"
 
   get 'login' => 'user_sessions#new', :as => :login
   delete 'logout' => 'user_sessions#destroy', :as => :logout
 
-  resources :projects, only: [:index, :new, :create, :show] do
+  root 'projects#home'
+
+  resources :projects, only: [:index, :new, :create, :show, :home] do
     resources :pledges, only: [:create]
     resources :rewards, only: [:new, :create, :destroy]
   end
-  resources :users, only: [:new, :create]
+
+  resources :users, only: [:new, :create, :show]
   resources :user_sessions, only: [:create]
+
+  post '/projects/:id/progress' => 'projects#create_progress', :as => :create_progress
+  post '/projects/:id/comment' => 'projects#create_comment', :as => :create_comment
+  resources :categories, only: [:show]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
