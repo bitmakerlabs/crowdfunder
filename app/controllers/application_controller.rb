@@ -10,7 +10,13 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   private
-  def not_authenticated
-    redirect_to login_path, alert: "Please login first"
+  # def not_authenticated
+  #   redirect_to login_path, alert: "Please login first"
+  # end
+
+  def require_login
+    unless current_user
+      redirect_to login_path, alert: "Please login first"
+    end
   end
 end

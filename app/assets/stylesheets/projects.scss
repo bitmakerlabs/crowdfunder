@@ -1,12 +1,15 @@
 // Place all the styles related to the projects controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
+main {
+  margin: 0 1em;
+}
 .project {
   text-align: center;
-  margin: 1rem 0;
+  margin: 1rem 20%;
   padding: 1rem 0;
   background-color: #f9f9f9;
+
 }
 
 .project-image > img {
