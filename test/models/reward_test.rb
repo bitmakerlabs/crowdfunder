@@ -3,7 +3,7 @@ require 'test_helper'
 class RewardTest < ActiveSupport::TestCase
 
   def test_a_reward_can_be_created
-    project = new_project
+    project = build(:project)
     project.save
     reward = Reward.create(
       dollar_amount: 99.00,
@@ -15,7 +15,7 @@ class RewardTest < ActiveSupport::TestCase
   end
 
   def test_a_reward_cannot_be_created_without_a_dollar_amount
-    project = new_project
+    project = build(:project)
     project.save
     reward = Reward.create(
       description: 'A heartfelt thanks!',
@@ -26,7 +26,7 @@ class RewardTest < ActiveSupport::TestCase
   end
 
   def test_a_reward_cannot_be_created_without_a_description
-    project = new_project
+    project = build(:project)
     project.save
     reward = Reward.create(
       dollar_amount: 99.00,
@@ -34,16 +34,6 @@ class RewardTest < ActiveSupport::TestCase
     )
     assert reward.invalid?, 'Reward should be invalid without a description'
     assert reward.new_record?, 'Reward should not save without a description'
-  end
-
-  def new_project
-    Project.new(
-      title:       'Cool new boardgame',
-      description: 'Trade sheep',
-      start_date:  Date.today,
-      end_date:    Date.today + 1.month,
-      goal:        50000
-    )
   end
 
 end
