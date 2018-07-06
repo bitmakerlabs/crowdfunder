@@ -1,5 +1,10 @@
 <h1>Sign up?</h1>
-
+  <% @user.errors.messages.each do |attribute, errors| %>
+    <% errors.each do |error| %>
+      <li><%= errors %></li>
+    <% end %>
+  <% end %>
+</ul>
 <%= render 'form' %>
 
 <%= link_to 'Back', root_path %>

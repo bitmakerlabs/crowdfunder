@@ -1,5 +1,10 @@
 <h1>Add a reward for <%= @project.title %></h1>
-
+  <% @reward.errors.messages.each do |attribute, errors| %>
+    <% errors.each do |error| %>
+      <li><%= errors %></li>
+    <% end %>
+  <% end %>
+</ul>
 <%= form_for [@project, @reward] do |f| %>
   <div>
     <%= f.label :dollar_amount %>
