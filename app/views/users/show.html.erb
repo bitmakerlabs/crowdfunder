@@ -1,0 +1,17 @@
+<h1><%= "#{@user.first_name} #{@user.last_name} Profile" %></h1>
+<section class="user_projects">
+  <h2><%= @user.first_name %>'s Projects</h2>
+  <% @user_projects.each do |project| %>
+    <h3><%= project.title %></h3>
+    <p><%= number_to_currency(project.goal) %></p>
+    <p>"<%= project.description %>"</p>
+  <% end %>
+</section>
+<section class="user_pledges">
+  <h2><%= @user.first_name %>'s Pledges</h2>
+  <h2>total: <%= number_to_currency(@user.total_pledges) %></h2>
+  <% @user_pledges.each do |pledge| %>
+    <h3><%= pledge.project.title %></h3>
+    <p><%= number_to_currency(pledge.dollar_amount) %></p>
+  <% end %>
+</section>

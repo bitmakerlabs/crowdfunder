@@ -14,7 +14,14 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to projects_url
     else
+      flash.now[:alert] = @user.errors.full_messages.first
       render 'new'
     end
+  end
+
+  def show
+    @user = User.find(params[:id])
+    @user_pledges = @user.pledges
+    @user_projects = @user.projects
   end
 end
