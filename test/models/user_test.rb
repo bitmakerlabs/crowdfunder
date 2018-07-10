@@ -22,7 +22,7 @@ class UserTest < ActiveSupport::TestCase
     refute user.valid?
   end
 
-  def test_user_total_pledge
+  def test_user_total_pledges
     user = create(:user)
     pledge1 = create(:pledge, dollar_amount: 10, user: user)
     pledge2 = create(:pledge, dollar_amount: 10, user: user)
@@ -30,4 +30,6 @@ class UserTest < ActiveSupport::TestCase
     pledge4 = create(:pledge, dollar_amount: 10, user: user)
     assert_equal(40, user.total_pledges)
   end
+
+
 end

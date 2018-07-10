@@ -15,4 +15,5 @@ class User < ActiveRecord::Base
     self.pledges.each {|pledge| sum += pledge.dollar_amount}
     return sum
   end
+
 end

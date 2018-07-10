@@ -48,4 +48,5 @@ class PledgeTest < ActiveSupport::TestCase
     assert pledge.invalid?, 'A pledge cannot be a negative dollar amount'
   end
 
+
 end

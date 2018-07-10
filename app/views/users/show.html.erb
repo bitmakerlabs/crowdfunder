@@ -2,7 +2,7 @@
 <section class="user_projects">
   <h2><%= @user.first_name %>'s Projects</h2>
   <% @user_projects.each do |project| %>
-    <h3><%= project.title %></h3>
+    <h3><%= link_to project.title, project_url(project.id) %></h3>
     <p><%= number_to_currency(project.goal) %></p>
     <p>"<%= project.description %>"</p>
   <% end %>

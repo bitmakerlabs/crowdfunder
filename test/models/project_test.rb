@@ -49,5 +49,37 @@ class ProjectTest < ActiveSupport::TestCase
     assert @project.invalid?, 'Project goal should not be zero'
   end
 
+  def test_total_project_pledges
+    user1 = create(:user)
+    user2 = create(:user)
+    user3 = create(:user)
+    user4 = create(:user)
+    project = create(:project)
+    pledge1 = create(:pledge, user: user1, dollar_amount: 100, project: project)
+    pledge1 = create(:pledge, user: user2, dollar_amount: 50, project: project)
+    pledge1 = create(:pledge, user: user3, dollar_amount: 50, project: project)
+    pledge1 = create(:pledge, user: user4, dollar_amount: 200, project: project)
+    assert_equal(400, project.total_pledges)
+  end
+
+  def test_if_user_backed_project
+    user = create(:user)
+    project = create(:project)
+    pledge1 = create(:pledge, dollar_amount: 100, project: project)
+    pledge2 = create(:pledge, dollar_amount: 100, project: project)
+    pledge3 = create(:pledge, dollar_amount: 100, project: project, user: user)
+    pledge4 = create(:pledge, dollar_amount: 100, project: project)
+
+
+    assert project.backed?(user)
+  end
+
+  def test_how_much_user_has_backed_project
+    user = create(:user)
+    project = create(:project)
+    pledge1 = create(:pledge, dollar_amount: 100, project: project, user: user)
+    pledge2 = create(:pledge, dollar_amount: 200, project: project, user: user)
+    assert_equal(300, project.backed_total(user))
+  end
 
 end

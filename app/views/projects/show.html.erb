@@ -5,9 +5,14 @@
 <% end %>
 
 <p><%= @project.description %></p>
+<p>Raised: <%= number_to_currency(@project.total_pledges) %></p>
 <p>Goal: <%= number_to_currency(@project.goal) %></p>
 <p>Fundraising starts: <%= @project.start_date.strftime("%A %b %d %Y") %></p>
 <p>Deadline: <%= @project.end_date.strftime("%A %b %d %Y") %></p>
+
+<% if @project.backed?(current_user) %>
+  <p>You have pledged <%= number_to_currency(@project.backed_total(current_user)) %> to this project</p>
+<% end %>
 
 <%= form_for [@project, Pledge.new] do |f| %>
   <%= f.number_field :dollar_amount, value: @project.rewards.minimum(:dollar_amount), step: 0.01 %>
