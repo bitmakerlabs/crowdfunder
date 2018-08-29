@@ -13,4 +13,17 @@ class ApplicationController < ActionController::Base
   def not_authenticated
     redirect_to login_path, alert: "Please login first"
   end
+
+  def require_login # => checks if user is logged in
+    if !current_user
+      flash[:notice] = "You must be logged in!"
+      redirect_to login_url
+    end
+  end
+
+  def require_ownership
+    if current_user != @project.user
+      redirect_to project_url(@project), notice: 'Access denied. You are not the owner of this project.'
+    end
+  end
 end
