@@ -40,4 +40,19 @@ class ProjectTest < ActiveSupport::TestCase
     )
   end
 
+  def test_project_invalid_if_end_date_before_start_date
+    # arrange
+    project = Project.new
+    project.start_date = Time.now.utc + rand(60).days
+    project.end_date = Time.now.utc + rand(10).days
+    project.title = "project blue"
+    project.description = "Nice project"
+    project.goal = 1000
+    project.user_id = 1
+    # act
+    unexpected_result = project.save
+    # assert
+    assert_equal(false,unexpected_result)
+  end
+
 end
