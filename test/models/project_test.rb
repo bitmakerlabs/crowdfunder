@@ -20,6 +20,16 @@ class ProjectTest < ActiveSupport::TestCase
     assert project.invalid?, 'Project should not save without owner.'
   end
 
+  def test_project_goal_must_be_positive
+    owner = new_user
+    owner.save
+    project = new_project
+    project.user = owner
+    project.goal = -1
+    project.save
+    assert project.invalid?, 'Project should not save if the goal is a negative number.'
+  end
+
   def new_project
     Project.new(
       title:       'Cool new boardgame',
