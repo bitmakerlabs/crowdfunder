@@ -5,7 +5,8 @@ class Project < ActiveRecord::Base
   belongs_to :user # project owner
 
   validates :title, :description, :goal, :start_date, :end_date, :user_id, presence: true
-  validates :goal, :numericality => { :greater_than_or_equal_to => 0 }
+  validates :goal, numericality: { greater_than: 0 }
+  # validates :start_date, numericality: {greater_than: Time.now}
   
   validate :end_date_if_cannot_be_before_start_date
   

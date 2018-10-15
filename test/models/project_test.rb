@@ -3,10 +3,7 @@ require 'test_helper'
 class ProjectTest < ActiveSupport::TestCase
 
   def test_valid_project_can_be_created
-    owner = new_user
-    owner.save
-    project = new_project
-    project.user = owner
+    project = new_project_with_user
     project.save
     assert project.valid?
     assert project.persisted?
@@ -21,13 +18,17 @@ class ProjectTest < ActiveSupport::TestCase
   end
 
   def test_project_goal_must_be_positive
-    owner = new_user
-    owner.save
-    project = new_project
-    project.user = owner
+    project = new_project_with_user
     project.goal = -1
     project.save
     assert project.invalid?, 'Project should not save if the goal is a negative number.'
+  end
+
+  def test_project_must_be_in_future
+    project = new_project_with_user
+    project.start_date = Time.now - 1.day
+    project.save
+    assert project.invalid?, 'Project should not save if the start date is in the past.'
   end
 
   def new_project
@@ -48,6 +49,15 @@ class ProjectTest < ActiveSupport::TestCase
       password:              'passpass',
       password_confirmation: 'passpass'
     )
+  end
+
+  def new_project_with_user
+    owner = new_user
+    owner.save
+    project = new_project
+    project.user = owner
+
+    return project
   end
 
   def test_project_invalid_if_end_date_before_start_date
