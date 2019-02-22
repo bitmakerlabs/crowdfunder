@@ -1,0 +1,19 @@
+<h1><%= @user.first_name %> <%= @user.last_name %></h1>
+<h2><%= @user.first_name %> <%= @user.last_name %> has pledged a total of <%= number_to_currency(@user.total_pledged) %></h2>
+
+<h2>Projects <%= @user.first_name %> <%= @user.last_name %> Pledged To</h2>
+<% @pledges.each do |pledge| %>
+  <div class="pledge-info">
+  <h4><%=link_to Project.find(pledge.project_id).title, project_path(pledge.project_id) %></h4>
+  <p><%= @user.first_name %> pledged <%= number_to_currency(pledge.dollar_amount) %>.</p>
+  </div>
+<% end %>
+
+<h2><%= @user.first_name %>'s Projects</h2>
+<% @projects.each do |project| %>
+  <div class="project-info">
+  <h4><%=link_to project.title, project_path(project) %></h4>
+  <h5>Total goal: <%= number_to_currency(project.goal) %> from <%= project.start_date.strftime("%F") %> to <%= project.end_date.strftime("%F") %></h5>
+  <p><%= project.description %></p>
+  </div>
+<% end %>

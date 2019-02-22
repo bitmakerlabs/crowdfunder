@@ -1,4 +1,4 @@
-class RewardsController < ApplicationController
+cdclass RewardsController < ApplicationController
   before_action :load_project
 
   def new

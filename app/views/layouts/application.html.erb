@@ -17,10 +17,21 @@
 
       <nav class="site-nav">
         <% if current_user %>
+          <%= link_to 'Home', projects_path %> |
+          <%= link_to 'My Profile', user_path(current_user) %> |
           <%= link_to "Logout", :logout, method: :delete %>
+          <%= form_tag categories_path, method: :post do %>
+            <%= select_tag "category_id", options_from_collection_for_select(Category.all, "id", "name") %>
+            <%= submit_tag 'Filter by Category' %>
+          <% end %>
         <% else %>
+          <%= link_to 'Home', projects_path %> |
           <%= link_to "Register", new_user_path %> |
           <%= link_to "Login", :login %>
+          <%= form_tag categories_path, method: :post do %>
+            <%= select_tag "category_id", options_from_collection_for_select(Category.all, "id", "name") %>
+            <%= submit_tag 'Filter by Category' %>
+          <% end %>
         <% end %>
       </nav>
     </header>

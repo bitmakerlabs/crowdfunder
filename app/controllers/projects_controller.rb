@@ -8,6 +8,11 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
+    @pledges = @project.pledges
+    @total_pledges = @project.total_pledges
+    @backers = @project.users
+    @update = Update.new
+    @latest_updates = @project.latest_updates(5)
   end
 
   def new
@@ -23,6 +28,8 @@ class ProjectsController < ApplicationController
     @project.start_date = params[:project][:start_date]
     @project.end_date = params[:project][:end_date]
     @project.image = params[:project][:image]
+    @project.user_id = current_user.id
+    @project.category_id = params[:category_id]
 
     if @project.save
       redirect_to projects_url

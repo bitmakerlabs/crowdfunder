@@ -3,6 +3,12 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def show
+    @user = User.find(params[:id])
+    @pledges = @user.pledges
+    @projects = @user.projects
+  end
+
   def create
     @user = User.new
     @user.first_name = params[:user][:first_name]

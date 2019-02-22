@@ -1,19 +1,37 @@
 <h1><%= @project.title %></h1>
+<p>
+  Created by <%= link_to "#{User.find(@project.user_id).first_name} #{User.find(@project.user_id).last_name}", user_path(@project.user_id) %> under the category <%= link_to @project.category.name, category_path(@project.category) %>
+</p>
 
 <% if @project.image.present? %>
   <%= image_tag @project.image %>
 <% end %>
 
 <p><%= @project.description %></p>
+<% if @backers.include?(current_user) %>
+  <p>You have already backed this project.</p>
+<% end %>
+<p>Currently raised: <%= number_to_currency(@project.total_pledges) %></p>
 <p>Goal: <%= number_to_currency(@project.goal) %></p>
 <p>Fundraising starts: <%= @project.start_date.strftime("%A %b %d %Y") %></p>
 <p>Deadline: <%= @project.end_date.strftime("%A %b %d %Y") %></p>
+<time class="project-days-left">
+  <%= icon('clock-o') %>
+  <%= "#{time_ago_in_words(@project.end_date)} #{( @project.end_date > Time.now.utc ) ? 'remaining' : 'past deadline'}" %>
+</time>
 
 <%= form_for [@project, Pledge.new] do |f| %>
   <%= f.number_field :dollar_amount, value: @project.rewards.minimum(:dollar_amount), step: 0.01 %>
   <%= f.submit "Pledge" %>
 <% end %>
-
+<h2>Recent Updates</h2>
+<% @latest_updates.each do |update| %>
+  <div class="display-update">
+    <h4><%= update.name %></h4>
+    <h5><%= update.created_at.strftime("%A %B %d %Y - %l:%M:%S %P") %></h5>
+    <p><%= update.description %></p>
+  </div>
+<% end %>
 <h2>Rewards</h2>
 <% @project.rewards.each do |reward| %>
   <p><%= number_to_currency(reward.dollar_amount) %></p>
@@ -27,3 +45,9 @@
 <% end %>
 
 <%= link_to "Add new reward", new_project_reward_path(@project) %>
+<% if current_user == @project.user %>
+  <section class="update-form">
+    <h4>Make a New Project Update</h4>
+    <%= render 'updates/form' %>
+  </section>
+<% end %>
