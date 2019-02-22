@@ -13,3 +13,19 @@
 
   <%= f.submit %>
 <% end %>
+
+<% if @reward.errors.any? %>
+  <div class="error-block">
+<<<<<<< HEAD
+    <h2><%= pluralize(@reward.errors.count, "error") %> reward error :</h2>
+=======
+    <h2><%= pluralize(@reward.errors.count, "error") %> error message :</h2>
+>>>>>>> 6f3ec35b5236d1040c1f922ad6609d1bf27e5cd1
+
+    <ul>
+      <% @reward.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

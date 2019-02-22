@@ -31,3 +31,15 @@
 
   <%= f.submit %>
 <% end %>
+
+<% if @project.errors.any? %>
+  <div class="error-block">
+    <h2><%= pluralize(@project.errors.count, "error") %> project error:</h2>
+
+    <ul>
+      <% @project.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
